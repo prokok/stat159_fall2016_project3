@@ -10,7 +10,6 @@ dat_4=subset(dat, CCUGPROF>4)
 #Using POOLED completion rate as our criteria. 
 #If there are NA values in POOLED completion rate, not going to use those universities.
 #is.na(dat1$C150_4_POOLED)==is.na(dat1$C150_4) used this to check
-
 #list of universities does have C150_4_POOLED
 dat_4$INSTNM[which(!is.na(dat_4$C150_4_POOLED))]
 length(dat_4$INSTNM[which(!is.na(dat_4$C150_4_POOLED))])#2484
