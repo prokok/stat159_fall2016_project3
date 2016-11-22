@@ -2,7 +2,7 @@
 #Loading the raw dataset
 #Focus on the 4 year universities(high overall graduation rates)
 
-dat = read.csv("../../data/subset-data.csv", stringsAsFactors = FALSE, na.strings = 'NULL')
+dat = read.csv("../../data/subset-data.csv", stringsAsFactors = FALSE)
 
 #Subsetting by 4-year school(Variable name: CCUGPROF > 4) stored in dat_4
 dat_4=subset(dat, CCUGPROF>4)
@@ -18,12 +18,12 @@ dat_4$INSTNM[which(dat_4$C150_4_POOLED==0)]
 length(dat_4$INSTNM[which(dat_4$C150_4_POOLED==0)])#15
 
 
-#Data for our graduation rate in california 4 year university undergraduate.(excluding NAs and 0s)
+#Data for our graduation rate in 4 year universities undergraduate.(excluding NAs and 0s)
 completion_4 = dat_4[which(!is.na(dat_4$C150_4_POOLED)), ]
 completion_4 = completion_4[which(completion_4$C150_4_POOLED!=0),]
 
 
-#histogram for completion rate in California 4 year university.
+#histogram for completion rate of 4 year universities.
 x = completion_4$C150_4_POOLED * 100
 
 png("../../images/histogram of completion rate.png", width=800, height=600)
@@ -31,14 +31,18 @@ h=hist(x, breaks = 20, col = '#5679DF'
      , xlab = "Percentage Rate(percentage)"
      , main = "Completion Rate in 4 year university(undergraduate)"
      , xlim = c(0,100), ylim = c(0,260))
-xfit<-seq(0,100,length=100) 
-yfit<-dnorm(xfit,mean=mean(x),sd=sd(x)) 
-yfit <- yfit*diff(h$mids[1:2])*length(x) 
-lines(xfit, yfit, col="red", lwd=2)
+xfit = seq(0,100,length=100) 
+yfit1 = dnorm(xfit,mean=mean(x),sd=sd(x)) 
+yfit1 = yfit1*diff(h$mids[1:2])*length(x) 
+lines(xfit, yfit1, col="red", lwd=2)
 dev.off()
 
 
-###Remeber, we are using dat1 = dat_ca_4yr#########################################
+###Remeber, we are using dat1 = dat_4#########################################
+###Let dat1=dat_4 for frequent use
+dat1=dat_4
+
+###################################################################################
 ############################Complemtion Rate by Demographics#######################
 #C150_4_WHITE
 ##Completion rate for first-time, full-time students at four-year institutions
@@ -52,41 +56,22 @@ dev.off()
 #C150_4_ASIAN
 ##Completion rate for first-time, full-time students at four-year institutions
 ##(150% of expected time to completion/6 years) for Asian students
-#C150_4_AIAN
-##Completion rate for first-time, full-time students at four-year institutions
-##(150% of expected time to completion/6 years) for American Indian/Alaska Native students
-#C150_4_NHPI
-##Completion rate for first-time, full-time students at four-year institutions 
-##(150% of expected time to completion/6 years) for Native Hawaiian/Pacific Islander students
-#C150_4_2MOR
-##Completion rate for first-time, full-time students at four-year institutions
-##(150% of expected time to completion/6 years) for students of two-or-more-races
-#C150_4_NRA
-##Completion rate for first-time, full-time students at four-year institutions
-##(150% of expected time to completion/6 years) for non-resident alien students
-#C150_4_UNKN
-##Completion rate for first-time, full-time students at four-year institutions
-##(150% of expected time to completion/6 years) for students whose race is unknown
 
-#The number of NAs in each demographic completions rate AMONG 206 observations.
-sum(as.numeric(is.na(dat1$C150_4_WHITE))) #48
-sum(as.numeric(is.na(dat1$C150_4_BLACK))) #60
-sum(as.numeric(is.na(dat1$C150_4_HISP))) #49
-sum(as.numeric(is.na(dat1$C150_4_ASIAN))) #60
-sum(as.numeric(is.na(dat1$C150_4_NHPI))) #139
-sum(as.numeric(is.na(dat1$C150_4_2MOR))) #147
-sum(as.numeric(is.na(dat1$C150_4_NRA))) #107
-sum(as.numeric(is.na(dat1$C150_4_UNKN))) #68
-sum(as.numeric(is.na(dat1$C150_4_WHITENH))) #206
-sum(as.numeric(is.na(dat1$C150_4_BLACKNH))) #206
-#There are many NA's in some data. Therefore, going to use first 4 variables for our data.
+#The number of NAs in each demographic completions rate AMONG 2740 observations.
+sum(as.numeric(is.na(dat1$C150_4_WHITE))) #388
+sum(as.numeric(is.na(dat1$C150_4_BLACK))) #551
+sum(as.numeric(is.na(dat1$C150_4_HISP))) #535
+sum(as.numeric(is.na(dat1$C150_4_ASIAN))) #879
 
-#Using the first 4 variables to exclude NA's in demographic completions(WHITE,BLACK,HISPANIC,ASIAN)
+
+#Eexclude NA's and 0's in demographic completions(WHITE,BLACK,HISPANIC,ASIAN)
 names_demo = c("C150_4_WHITE","C150_4_BLACK","C150_4_HISP","C150_4_ASIAN")
 com_demo = subset(dat1, (!is.na(dat1$C150_4_WHITE)) & (!is.na(dat1$C150_4_BLACK)) &
                (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)))
-
-
+com_demo = com_demo[which(com_demo$C150_4_WHITE!=0),]
+com_demo = com_demo[which(com_demo$C150_4_BLACK!=0),]
+com_demo = com_demo[which(com_demo$C150_4_HISP!=0),]
+com_demo = com_demo[which(com_demo$C150_4_ASIAN!=0),]
 
 #Summary Statistics of completion rate by Demographics(WHITE, BLACK, HISP, ASIAN)
 sink(file = "../../data/eda-output.txt")
@@ -104,15 +89,21 @@ for(i in 1:length(names_demo))
 cat("\n\n")
 sink()
 
-##Histogram of completions rate by demographics
+##Histogram of completions rate by Demographics(WHITE, BLACK, HISP, ASIAN)
 for(i in 1:length(names_demo))
 {
   path1 = paste("../../images/histogram-completion-rate",names_demo[i],".png")
   png(filename = path1, width=800, height=600)
-  hist(com_demo[,names_demo[i]],breaks= 10, main = paste("Histogram of completion rate of "
+  k1 = com_demo[,names_demo[i]]*100
+  k2 = hist(k1,breaks= 20, main = paste("Histogram of completion rate of "
             ,names_demo[i]), col = "#5679DF", xlab = names_demo[i])
+  xfit = seq(from = 0, to = 100,length=100) 
+  yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
+  yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
+  lines(xfit, yfit, col="red", lwd=2)
   dev.off()
 }
+
 
 ###################################Demographic Percentage############################
 #The number of NAs in each demographic PERCENTAGE AMONG 206 observations.
