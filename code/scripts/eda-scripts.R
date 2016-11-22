@@ -2,8 +2,7 @@
 #Loading the raw dataset
 #Focus on the 4 year universities(high overall graduation rates)
 
-dat = read.csv("../../data/MERGED2014_15_PP.csv", stringsAsFactors = FALSE, na.strings = 'NULL')
-colnames(dat) = c("UNITID",names(dat)[-1])
+dat = read.csv("../../data/subset-data.csv", stringsAsFactors = FALSE, na.strings = 'NULL')
 
 #Subsetting by 4-year school(Variable name: CCUGPROF > 4) stored in dat_4
 dat_4=subset(dat, CCUGPROF>4)
