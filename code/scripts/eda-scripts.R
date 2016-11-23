@@ -115,15 +115,15 @@ boxplot(com_demo$C150_4_WHITE*100, com_demo$C150_4_BLACK*100
 dev.off()
 
 ############################Maybe correlation OR anova analysis############################
-white = aov(com_demo$C150_4_POOLED~com_demo$C150_4_WHITE)
-black = aov(com_demo$C150_4_POOLED~com_demo$C150_4_BLACK)
-hisp = aov(com_demo$C150_4_POOLED~com_demo$C150_4_HISP)
-asian = aov(com_demo$C150_4_POOLED~com_demo$C150_4_ASIAN)
+com_white = aov(com_demo$C150_4_POOLED~com_demo$C150_4_WHITE)
+com_black = aov(com_demo$C150_4_POOLED~com_demo$C150_4_BLACK)
+com_hisp = aov(com_demo$C150_4_POOLED~com_demo$C150_4_HISP)
+com_asian = aov(com_demo$C150_4_POOLED~com_demo$C150_4_ASIAN)
 
-summary(white)
-summary(black)
-summary(hisp)
-summary(asian)
+summary(com_white)
+summary(com_black)
+summary(com_hisp)
+summary(com_asian)
 ###########################################################################################
 
 
