@@ -67,11 +67,13 @@ sum(as.numeric(is.na(dat1$C150_4_ASIAN))) #879
 #Eexclude NA's and 0's in demographic completions(WHITE,BLACK,HISPANIC,ASIAN)
 names_demo = c("C150_4_WHITE","C150_4_BLACK","C150_4_HISP","C150_4_ASIAN")
 com_demo = subset(dat1, (!is.na(dat1$C150_4_WHITE)) & (!is.na(dat1$C150_4_BLACK)) &
-               (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)))
+               (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)) & (!is.na(dat1$C150_4_POOLED)))
 com_demo = com_demo[which(com_demo$C150_4_WHITE!=0),]
 com_demo = com_demo[which(com_demo$C150_4_BLACK!=0),]
 com_demo = com_demo[which(com_demo$C150_4_HISP!=0),]
 com_demo = com_demo[which(com_demo$C150_4_ASIAN!=0),]
+com_demo = com_demo[which(com_demo$C150_4_POOLED!=0),]
+
 
 #Summary Statistics of completion rate by Demographics(WHITE, BLACK, HISP, ASIAN)
 sink(file = "../../data/eda-output.txt")
@@ -104,22 +106,43 @@ for(i in 1:length(names_demo))
   dev.off()
 }
 
+png(filename = "../../images/boxplot of completion rate by demographic.png", width=800, height=600)
+boxplot(com_demo$C150_4_WHITE*100, com_demo$C150_4_BLACK*100
+        , com_demo$C150_4_HISP*100, com_demo$C150_4_ASIAN*100, com_demo$C150_4_POOLED*100
+        , main = "Completion rate by demographics", ylab = "completion rate"
+        , las=2, col = c("red","sienna","palevioletred1","royalblue2", "green")
+        , names = c("white", "black", "hispanic", "asian", "overall"))
+dev.off()
 
+############################Maybe correlation OR anova analysis############################
+white = aov(com_demo$C150_4_POOLED~com_demo$C150_4_WHITE)
+black = aov(com_demo$C150_4_POOLED~com_demo$C150_4_BLACK)
+hisp = aov(com_demo$C150_4_POOLED~com_demo$C150_4_HISP)
+asian = aov(com_demo$C150_4_POOLED~com_demo$C150_4_ASIAN)
+
+summary(white)
+summary(black)
+summary(hisp)
+summary(asian)
+###########################################################################################
+
+
+#####################################################################################
 ###################################Demographic Percentage############################
-#The number of NAs in each demographic PERCENTAGE AMONG 206 observations.
-#We are going to look at first 4 variables.
+#The number of NAs in each demographic PERCENTAGE AMONG 2740 observations.
 #Since no data is missing, just going to use dat1.
 sum(as.numeric(is.na(dat1$UGDS_WHITE))) #0
 sum(as.numeric(is.na(dat1$UGDS_BLACK))) #0
 sum(as.numeric(is.na(dat1$UGDS_HISP))) #0
 sum(as.numeric(is.na(dat1$UGDS_ASIAN))) #0
-sum(as.numeric(is.na(dat1$UGDS_AIAN))) #0
-sum(as.numeric(is.na(dat1$UGDS_NHPI))) #0
-sum(as.numeric(is.na(dat1$UGDS_2MOR))) #0
-sum(as.numeric(is.na(dat1$UGDS_NRA))) #0
-sum(as.numeric(is.na(dat1$UGDS_UNKN))) #0
 
+#Eexclude 0's in demographic percentage(WHITE,BLACK,HISPANIC,ASIAN)
 names_demo2 = c("UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN")
+com_demo2 = dat1[which(dat1$UGDS_WHITE!=0),]
+com_demo2 = com_demo2[which(com_demo2$UGDS_BLACK!=0),]
+com_demo2 = com_demo2[which(com_demo2$UGDS_HISP!=0),]
+com_demo2 = com_demo2[which(com_demo2$UGDS_ASIAN!=0),]
+
 
 #Summary Statistics of Each Demographics(WHITE, BLACK, HISP, ASIAN)
 sink(file = "../../data/eda-output.txt", append=TRUE)
@@ -127,10 +150,10 @@ cat("B. Summary Statistics Of demographic percentage\n\n")
 for(i in 1:length(names_demo2))
 {
   cat("summary statistics of", names_demo2[i], "\n\n")
-  cat(summary(dat1[,names_demo2[i]]), "\n")
-  cat("Stadard Deviation. : ", sd(dat1[,names_demo2[i]]),"\n")
-  cat("Range. : ", max(dat1[,names_demo2[i]])-min(dat1[,names_demo2[i]])," \n")
-  cat("IQR. : ", IQR(dat1[,names_demo2[i]]),"\n")
+  cat(summary(com_demo2[,names_demo2[i]]), "\n")
+  cat("Stadard Deviation. : ", sd(com_demo2[,names_demo2[i]]),"\n")
+  cat("Range. : ", max(com_demo2[,names_demo2[i]])-min(com_demo2[,names_demo2[i]])," \n")
+  cat("IQR. : ", IQR(com_demo2[,names_demo2[i]]),"\n")
   cat("\n")
 }
 cat("\n\n")
@@ -141,14 +164,39 @@ for(i in 1:length(names_demo2))
 {
   path1 = paste("../../images/histogram-deomgraphic-percentage",names_demo2[i],".png")
   png(filename = path1, width=800, height=600)
-  hist(dat1[,names_demo2[i]],breaks= 10, main = paste("Histogram of demograhic percentage of "
+  k1 = com_demo2[,names_demo2[i]]*100
+  k2 = hist(k1,breaks= 20, main = paste("Histogram of demograhic percentage of "
           ,names_demo2[i]), col = "#5679DF", xlab = names_demo2[i])
+  xfit = seq(from = 0, to = 100,length=100) 
+  yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
+  yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
+  lines(xfit, yfit, col="red", lwd=2)
   dev.off()
 }
 
+
+png(filename = "../../images/boxplot of demographic percentage.png", width=800, height=600)
+boxplot(com_demo2$UGDS_WHITE*100, com_demo2$UGDS_BLACK*100
+        , com_demo2$UGDS_HISP*100, com_demo2$UGDS_ASIAN*100
+        , main = "Demographic percentages", ylab = "demograhic percentage"
+        , las=2, col = c("red","sienna","palevioletred1","royalblue2")
+        , names = c("white", "black", "hispanic", "asian"))
+dev.off()
+
+###################################ANOVA analysis of completion rate by demograhic percentage###
+white1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_WHITE)
+black1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_BLACK)
+hisp1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_HISP)
+asian1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_ASIAN)
+
+summary(white1)
+summary(black1)
+summary(hisp1)
+summary(asian1)
+################################################################################################
+
+######################################################################################
 ###############################Repayment rate on FAFSA################################
-#COMPL_RPY_1YR_RT
-##1_yr_repayment.completers
 #COMPL_RPY_3YR_RT
 ##3_yr_repayment.completers
 #COMPL_RPY_5YR_RT
@@ -156,12 +204,10 @@ for(i in 1:length(names_demo2))
 #COMPL_RPY_7YR_RT
 ##7_yr_repayment.completers
 
-#The number of NAs in Repayment rate on year 1,3,5,7
-#ruling out 1_yr_repayment.completers because 
-sum(as.numeric(is.na(dat1$COMPL_RPY_1YR_RT))) #206
-sum(as.numeric(is.na(dat1$COMPL_RPY_3YR_RT))) #5
-sum(as.numeric(is.na(dat1$COMPL_RPY_5YR_RT))) #15
-sum(as.numeric(is.na(dat1$COMPL_RPY_7YR_RT))) #18
+#The number of NAs in Repayment rate on year 3,5,7
+sum(as.numeric(is.na(dat1$COMPL_RPY_3YR_RT))) #108
+sum(as.numeric(is.na(dat1$COMPL_RPY_5YR_RT))) #140
+sum(as.numeric(is.na(dat1$COMPL_RPY_7YR_RT))) #164
 
 #Since the column class is character becuase "PrivacySuppressed" in the variables
 #Need to convert colums into numeric data.
@@ -200,13 +246,13 @@ sink()
 
 
 png(filename = "../../images/histgram of Three year repayment rate for completers.png", width=800, height=600)
-hist(yr3, col = "#5679DF", breaks = 10, main = "Histogram of Three year repayment rate for completers")
+hist(yr3*100, col = "#5679DF", breaks = 20, main = "Histogram of Three year repayment rate for completers")
 dev.off()
 png(filename = "../../images/histgram of Five year repayment rate for completers.png", width=800, height=600)
-hist(yr5, col = "#5679DF", breaks = 10, main = "Histogram of Five year repayment rate for completers")
+hist(yr5*100, col = "#5679DF", breaks = 20, main = "Histogram of Five year repayment rate for completers")
 dev.off()
 png(filename = "../../images/histgram of Seven year repayment rate for completers.png", width=800, height=600)
-hist(yr7, col = "#5679DF", breaks = 10, main = "Histogram of Seven year repayment rate for completers")
+hist(yr7*100, col = "#5679DF", breaks = 20, main = "Histogram of Seven year repayment rate for completers")
 dev.off()
 
 
@@ -351,12 +397,7 @@ plot(com_demo_w$C150_4,com_demo_w$C150_4_ASIAN
      , xlab = "Completion rate", ylab = "Completion rate of asian")
 dev.off()
 
-png(filename = "../../images/boxplot of completion rate by demographic.png", width=800, height=600)
-boxplot(com_demo_w$C150_4_WHITE, com_demo_w$C150_4_BLACK
-        , com_demo_w$C150_4_HISP, com_demo_w$C150_4_ASIAN, com_demo_w$C150_4
-        , las=2, col = c("red","sienna","palevioletred1","royalblue2", "royalblue2")
-        , names = c("white", "black", "hispanic", "asian", "overall"))
-dev.off()
+
 
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
