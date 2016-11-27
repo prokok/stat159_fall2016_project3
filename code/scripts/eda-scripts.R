@@ -538,13 +538,55 @@ plot(sat$SAT_AVG, (sat$C150_4_POOLED), main = "scatterplot of Average Sat score 
      , xlab = "Average Sat score", ylab="completion rate")
 dev.off()
 
+#####################Size of School####################################
+#CCSIZSET
+##Carnegie Classification -- size and setting
+summary(com_demo$CCSIZSET)
+
+table(com_demo$CCSIZSET)
+
+#Summary Statistics of Average Sat score#
+
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("2. Explanatory Analysis of Categorical Varibles(represented by numbers 6 to 17)\n\n")
+cat("K. Summary Statistics Of Size of School\n\n")
+cat("frequency table Of Size of School\n\n")
+write.table(table(com_demo$CCSIZSET), row.names = FALSE, col.names = FALSE, quote = FALSE)
+cat("\n")
+cat("Relative frequency table Of Size of School\n\n")
+write.table(prop.table(table(com_demo$CCSIZSET)), row.names = FALSE, col.names = FALSE, quote = FALSE)
+cat("\n\n")
+sink()
+
+#Creating barcharts of Size of school
+png(filename = "../../images/Barchart of Size of school.png", width=800, height=600)
+barplot(prop.table(table(com_demo$CCSIZSET)), main = "Barchart of Size of school"
+     , xlab = "Size of School", ylab = "relative frequecny", col = "#5679DF")
+dev.off()
+
+#Creating boxplots of Size of school
+png(filename = "../../images/Boxplot of Size of school on completion rate.png", width=800, height=600)
+boxplot(com_demo$C150_4_POOLED ~ com_demo$CCSIZSET, main = "boxplot of Size of school on completion rate"
+        , xlab = "Size of School", ylab = "completion rate", , col = "#5679DF")
+dev.off()
+
+#Anova analysis of Size of School on completion rate.
+anova_size = aov(com_demo$C150_4_POOLED ~ com_demo$CCSIZSET)
+summary(anova_size)
+sink(file = "../../data/eda-output.txt", append = TRUE)
+cat("Anova Analysis of Size of school on completion rate\n\n")
+summary(anova_size)
+cat("\n")
+cat("\n\n")
+sink()
+
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
 
 
-#Size of school : CCSIZSET
+
 #public/ private(non-profit)/ private(profit) : CONTROL
-#Sat scores : SAT_AVG
+
 
 
 
