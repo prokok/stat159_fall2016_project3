@@ -117,27 +117,27 @@ dev.off()
 
 
 png(filename = "../../images/scatterplot of overall completion rate and completion rate of white.png", width=800, height=600)
-plot(com_demo$C150_4_POOLED,com_demo$C150_4_WHITE
+plot(com_demo$C150_4_WHITE, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of white"
-     , xlab = "Completion rate", ylab = "Completion rate of white ")
+     , xlab = "Completion rate of white", ylab = "Completion rate")
 dev.off()
 
 png(filename = "../../images/scatterplot of overall completion rate and completion rate of black.png", width=800, height=600)
-plot(com_demo$C150_4_POOLED,com_demo$C150_4_BLACK
+plot(com_demo$C150_4_BLACK, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of black"
-     , xlab = "Completion rate", ylab = "Completion rate of black ")
+     , xlab = "Completion rate of black ", ylab = "Completion rate")
 dev.off()
 
 png(filename = "../../images/scatterplot of overall completion rate and completion rate of hispanic.png", width=800, height=600)
-plot(com_demo$C150_4_POOLED,com_demo$C150_4_HISP
+plot(com_demo$C150_4_HISP, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of hispanic"
-     , xlab = "Completion rate", ylab = "Completion rate of hispanic ")
+     , xlab = "Completion rate of hispanic", ylab = "Completion rate")
 dev.off()
 
 png(filename = "../../images/scatterplot of overall completion rate and completion rate of asian.png", width=800, height=600)
-plot(com_demo$C150_4_POOLED,com_demo$C150_4_ASIAN
+plot(com_demo$C150_4_ASIAN, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of asian"
-     , xlab = "Completion rate", ylab = "Completion rate of asian")
+     , xlab = "Completion rate of asian", ylab = "Completion rate")
 dev.off()
 
 
@@ -509,37 +509,43 @@ plot((pell$PCTPELL), (pell$C150_4_POOLED), main = "scatterplot of Pell Grant rat
 dev.off()
 
 
+#####################Average Sat score####################################
+#SAT_AVG
+##Average SAT equivalent score of students admitted
+sat = com_demo
+sat$SAT_AVG = as.numeric(sat$SAT_AVG)
+sat$SAT_AVG[is.na(sat$SAT_AVG)] = 0
+sat = sat[sat$SAT_AVG!=0,]
+
+#Summary Statistics of Average Sat score#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("J. Summary Statistics Of Average Sat score\n\n")
+cat(summary(sat$SAT_AVG), "\n")
+cat("Stadard Deviation. : ", sd(sat$SAT_AVG),"\n")
+cat("Range. : ", max(sat$SAT_AVG)-min(sat$SAT_AVG)," \n")
+cat("IQR. : ", IQR(sat$SAT_AVG),"\n")
+cat("\n")
+cat("\n\n")
+sink()
+
+png(filename = "../../images/histogram of Average Sat score.png", width=800, height=600)
+hist(sat$SAT_AVG, col = "#5679DF", breaks = 20
+     , main = "Histogram of Average Sat score", xlab = "Average Sat score")
+dev.off()
+
+png(filename = "../../images/scatterplot of Average Sat score and completion rate.png", width=800, height=600)
+plot(sat$SAT_AVG, (sat$C150_4_POOLED), main = "scatterplot of Average Sat score and completion rate"
+     , xlab = "Average Sat score", ylab="completion rate")
+dev.off()
+
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
 
 
-
-
-
-#overall Completion rate: C150_4
-#Cost of attendance: NPT4_PUB/NPT4_PRIV
-#Size of school: CCSIZSET
+#Size of school : CCSIZSET
 #public/ private(non-profit)/ private(profit) : CONTROL
 #Sat scores : SAT_AVG
 
-#The number of NAs in in each indicators mentioned above.
-sum(as.numeric(is.na(dat1$C150_4))) #36
-sum(as.numeric(is.na(dat1$NPT4_PUB))) #174
-sum(as.numeric(is.na(dat1$NPT4_PRIV))) #51
-sum(as.numeric(is.na(dat1$CCSIZSET))) #0
-sum(as.numeric(is.na(dat1$SAT_AVG))) #134
-#Subsetting by SAT_AVG
-
-cor = subset(dat1,(!is.na(dat1$SAT_AVG)))
-length(cor$C150_4)
-length(cor$NPT4_PUB)
-length(cor$NPT4_PRIV)
-length(cor$CCSIZSET)
-length(cor$SAT_AVG)
-length(na.omit(cor$NPT4_PUB))
-
-na.omit(as.numeric(cor$NPT4_PUB)) + na.omit(as.numeric(cor$NPT4_PRIV))
 
 
-cor$NPT4_PUB
-cor$NPT4_PRIV
+
