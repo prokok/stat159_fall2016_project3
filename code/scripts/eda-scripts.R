@@ -296,7 +296,7 @@ m6 = na.omit(as.numeric(dat1$MD_EARN_WNE_P6))
 m8 = na.omit(as.numeric(dat1$MD_EARN_WNE_P8))
 m10 = na.omit(as.numeric(dat1$MD_EARN_WNE_P10))
 
-
+#Summary Statistics of Median Earning after 6,8,10 year#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("D. Summary Statistics Of Median Earning after 6,8,10 year\n\n")
 
@@ -359,12 +359,13 @@ dev.off()
 #ADM_RATE
 ##Admission rate
 
-#The number of NAs in Median earning in 6,8,10 years after entry
-sum(as.numeric(is.na(dat1$ADM_RATE))) #868
+#The number of NAs in Median earning in 6,8,10 years after entry using com_demo to compare the values  
+#in terms of completion rate
+sum(as.numeric(is.na(com_demo$ADM_RATE))) #233
 ad = com_demo[com_demo$ADM_RATE!=0,]
 ad = ad[!is.na(re$ADM_RATE), ]
 
-#Summary Statistics of Admission#
+#Summary Statistics of Admission rate#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("E. Summary Statistics Of Admission rate\n\n")
 cat(summary(ad), "\n")
@@ -388,11 +389,11 @@ dev.off()
 #####################Retention Rate####################################
 #RET_FT4
 ##First-time, full-time student retention rate at four-year institutions
-sum(as.numeric(is.na(dat1$RET_FT4))) #464
+sum(as.numeric(is.na(com_demo$RET_FT4))) #122
 re = com_demo[com_demo$RET_FT4!=0,]
 re = re[!is.na(re$RET_FT4), ]
 
-#Summary Statistics of Admission#
+#Summary Statistics of Retention Rate#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("F. Summary Statistics Of Retention rate\n\n")
 cat(summary(re$RET_FT4), "\n")
@@ -412,33 +413,42 @@ plot((re$RET_FT4), (re$C150_4_POOLED), main = "scatterplot of retention rate and
      , xlab = "retention rate", ylab="completion rate")
 dev.off()
 
+
+
 #####################total cost of attendance####################################
 #NPT4_PRIV
 ##Average net price for Title IV institutions (private for-profit and nonprofit institutions)
 #NPT4_PUB
 ##Average net price for Title IV institutions (public institutions)
-sum(as.numeric(is.na(dat1$NPT4_PRIV))) #841
-sum(as.numeric(is.na(dat1$NPT4_PUB))) #2071
+sum(as.numeric(is.na(com_demo$NPT4_PRIV))) #526
+sum(as.numeric(is.na(com_demo$NPT4_PUB))) #923
 
-cost = merge(dat1$NPT4_PRIV,dat1$NPT4_PUB)
+#MERGING TWO data frames and removing NA values and 0's.
+cost = com_demo
+cost$NPT4_PRIV[is.na(cost$NPT4_PRIV)] =0
+cost$NPT4_PUB[is.na(cost$NPT4_PUB)] = 0
+cost = cbind(cost,cost = cost$NPT4_PRIV + cost$NPT4_PUB)
+cost = cost[cost$cost!=0,]
 
-dat1$NPT4_PRIV
-re = na.omit(dat1$RET_FT4)
-re = re[which(re!=0)]
-
-#Summary Statistics of Admission#
+#Summary Statistics of cost of attendance#
 sink(file = "../../data/eda-output.txt", append=TRUE)
-cat("F. Summary Statistics Of Retention rate\n\n")
-cat(summary(re), "\n")
-cat("Stadard Deviation. : ", sd(re),"\n")
-cat("Range. : ", max(re)-min(re)," \n")
-cat("IQR. : ", IQR(re),"\n")
+cat("G. Summary Statistics Of Cost of attendance rate\n\n")
+cat(summary(cost$cost), "\n")
+cat("Stadard Deviation. : ", sd(cost$cost),"\n")
+cat("Range. : ", max(cost$cost)-min(cost$cost)," \n")
+cat("IQR. : ", IQR(cost$cost),"\n")
 cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of retention rate.png", width=800, height=600)
-hist(re, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
+png(filename = "../../images/histogram of cost of attendance.png", width=800, height=600)
+hist(cost$cost, col = "#5679DF", breaks = 10
+     , main = "Histogram of cost of attendance", xlab = "cost of attendance")
+dev.off()
+
+png(filename = "../../images/scatterplot of cost of attendace and completion rate.png", width=800, height=600)
+plot((cost$cost), (cost$C150_4_POOLED), main = "scatterplot of cost of attendace rate and Completion rate"
+     , xlab = "cost of attendacne", ylab="completion rate")
 dev.off()
 
 
