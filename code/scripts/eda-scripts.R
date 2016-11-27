@@ -29,9 +29,9 @@ x = completion_4$C150_4_POOLED * 100
 
 png("../../images/histogram of completion rate.png", width=800, height=600)
 h=hist(x, breaks = 20, col = '#5679DF'
-     , xlab = "Percentage Rate(percentage)"
-     , main = "Completion Rate in 4 year university(undergraduate)"
-     , xlim = c(0,100), ylim = c(0,260))
+       , xlab = "Percentage Rate(percentage)"
+       , main = "Completion Rate in 4 year university(undergraduate)"
+       , xlim = c(0,100), ylim = c(0,260))
 xfit = seq(0,100,length=100) 
 yfit1 = dnorm(xfit,mean=mean(x),sd=sd(x)) 
 yfit1 = yfit1*diff(h$mids[1:2])*length(x) 
@@ -68,7 +68,7 @@ sum(as.numeric(is.na(dat1$C150_4_ASIAN))) #879
 #Eexclude NA's and 0's in demographic completions(WHITE,BLACK,HISPANIC,ASIAN)
 names_demo = c("C150_4_WHITE","C150_4_BLACK","C150_4_HISP","C150_4_ASIAN")
 com_demo = subset(dat1, (!is.na(dat1$C150_4_WHITE)) & (!is.na(dat1$C150_4_BLACK)) &
-               (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)) & (!is.na(dat1$C150_4_POOLED)))
+                    (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)) & (!is.na(dat1$C150_4_POOLED)))
 com_demo = com_demo[which(com_demo$C150_4_WHITE!=0),]
 com_demo = com_demo[which(com_demo$C150_4_BLACK!=0),]
 com_demo = com_demo[which(com_demo$C150_4_HISP!=0),]
@@ -99,7 +99,7 @@ for(i in 1:length(names_demo))
   png(filename = path1, width=800, height=600)
   k1 = com_demo[,names_demo[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of completion rate of "
-            ,names_demo[i]), col = "#5679DF", xlab = names_demo[i])
+                                        ,names_demo[i]), col = "#5679DF", xlab = names_demo[i])
   xfit = seq(from = 0, to = 100,length=100) 
   yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
   yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
@@ -180,7 +180,7 @@ for(i in 1:length(names_demo2))
   png(filename = path1, width=800, height=600)
   k1 = com_demo2[,names_demo2[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of demograhic percentage of "
-          ,names_demo2[i]), col = "#5679DF", xlab = names_demo2[i])
+                                        ,names_demo2[i]), col = "#5679DF", xlab = names_demo2[i])
   xfit = seq(from = 0, to = 100,length=100) 
   yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
   yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
@@ -198,15 +198,15 @@ boxplot(com_demo2$UGDS_WHITE*100, com_demo2$UGDS_BLACK*100
 dev.off()
 
 ####################ANOVA analysis of demographic completion rate by demograhic percentage###
-white1 = aov(com_demo2$C150_4_WHITE~com_demo2$UGDS_WHITE)
-black1 = aov(com_demo2$C150_4_BLACK~com_demo2$UGDS_BLACK)
-hisp1 = aov(com_demo2$C150_4_HISP~com_demo2$UGDS_HISP)
-asian1 = aov(com_demo2$C150_4_ASIAN~com_demo2$UGDS_ASIAN)
+#white1 = aov(com_demo2$C150_4_WHITE~com_demo2$UGDS_WHITE)
+#black1 = aov(com_demo2$C150_4_BLACK~com_demo2$UGDS_BLACK)
+#hisp1 = aov(com_demo2$C150_4_HISP~com_demo2$UGDS_HISP)
+#asian1 = aov(com_demo2$C150_4_ASIAN~com_demo2$UGDS_ASIAN)
 
-summary(white1)
-summary(black1)
-summary(hisp1)
-summary(asian1)
+#summary(white1)
+#summary(black1)
+#summary(hisp1)
+#summary(asian1)
 ################################################################################################
 
 ######################################################################################
@@ -232,42 +232,42 @@ yr7 = na.omit(as.numeric(dat1$COMPL_RPY_7YR_RT))
 
 #Summary Statistics of repayment rate#
 sink(file = "../../data/eda-output.txt", append=TRUE)
-  cat("C. Summary Statistics Of Repayment rate on FAFSA depending in 3,5,7 year\n\n")
-  
-  cat("summary statistics of Three year repayment rate for completers\n\n")
-  cat(summary(yr3), "\n")
-  cat("Stadard Deviation. : ", sd(yr3),"\n")
-  cat("Range. : ", max(yr3)-min(yr3)," \n")
-  cat("IQR. : ", IQR(yr3),"\n")
-  cat("\n")
-  
-  cat("summary statistics of Five year repayment rate for completers\n\n")
-  cat(summary(yr5), "\n")
-  cat("Stadard Deviation. : ", sd(yr5),"\n")
-  cat("Range. : ", max(yr5)-min(yr5)," \n")
-  cat("IQR. : ", IQR(yr5),"\n")
-  cat("\n")
-  
-  cat("summary statistics of Seven year repayment rate for completers\n\n")
-  cat(summary(yr7), "\n")
-  cat("Stadard Deviation. : ", sd(yr7),"\n")
-  cat("Range. : ", max(yr3)-min(yr7)," \n")
-  cat("IQR. : ", IQR(yr7),"\n")
-  cat("\n")
-  
+cat("C. Summary Statistics Of Repayment rate on FAFSA depending in 3,5,7 year\n\n")
+
+cat("summary statistics of Three year repayment rate for completers\n\n")
+cat(summary(yr3), "\n")
+cat("Stadard Deviation. : ", sd(yr3),"\n")
+cat("Range. : ", max(yr3)-min(yr3)," \n")
+cat("IQR. : ", IQR(yr3),"\n")
+cat("\n")
+
+cat("summary statistics of Five year repayment rate for completers\n\n")
+cat(summary(yr5), "\n")
+cat("Stadard Deviation. : ", sd(yr5),"\n")
+cat("Range. : ", max(yr5)-min(yr5)," \n")
+cat("IQR. : ", IQR(yr5),"\n")
+cat("\n")
+
+cat("summary statistics of Seven year repayment rate for completers\n\n")
+cat(summary(yr7), "\n")
+cat("Stadard Deviation. : ", sd(yr7),"\n")
+cat("Range. : ", max(yr3)-min(yr7)," \n")
+cat("IQR. : ", IQR(yr7),"\n")
+cat("\n")
+
 cat("\n\n")
 sink()
 
 
-png(filename = "../../images/histgram of Three year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram of Three year repayment rate for completers.png", width=800, height=600)
 hist(yr3*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Three year repayment rate for completers")
 dev.off()
-png(filename = "../../images/histgram of Five year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram of Five year repayment rate for completers.png", width=800, height=600)
 hist(yr5*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Five year repayment rate for completers")
 dev.off()
-png(filename = "../../images/histgram of Seven year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram of Seven year repayment rate for completers.png", width=800, height=600)
 hist(yr7*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Seven year repayment rate for completers")
 dev.off()
@@ -324,27 +324,27 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histgram of Median Earning after 6 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram of Median Earning after 6 year(log transfromed).png", width=800, height=600)
 md1_log = log(m6)
 md1 = hist(md1_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 6 year"
-     , xlab = "Earning(log transformed)", xlim = c(9,12))
+           , xlab = "Earning(log transformed)", xlim = c(9,12))
 md1_xfit = seq(from = 9, to = 12,length=100) 
 md1_yfit = dnorm(md1_xfit,mean=mean(md1_log),sd=sd(md1_log)) 
 md1_yfit  =  md1_yfit*diff(md1$mids[1:2])*length(md1_log) 
 lines(md1_xfit, md1_yfit, col="red", lwd=2)
 dev.off()
 
-png(filename = "../../images/histgram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
 md2_log = log(m8)
 md2 = hist(md2_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
-     , xlab = "Earning(log transformed)", xlim = c(9,12))
+           , xlab = "Earning(log transformed)", xlim = c(9,12))
 md2_xfit = seq(from = 9, to = 12,length=100) 
 md2_yfit = dnorm(md2_xfit,mean=mean(md2_log),sd=sd(md2_log)) 
 md2_yfit  =  md2_yfit*diff(md2$mids[1:2])*length(md2_log) 
 lines(md2_xfit, md2_yfit, col="red", lwd=2)
 dev.off()
 
-png(filename = "../../images/histgram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
 md3_log = log(m10)
 md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 10 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
@@ -361,7 +361,8 @@ dev.off()
 
 #The number of NAs in Median earning in 6,8,10 years after entry
 sum(as.numeric(is.na(dat1$ADM_RATE))) #868
-ad = na.omit(dat1$ADM_RATE)
+ad = com_demo[com_demo$ADM_RATE!=0,]
+ad = ad[!is.na(re$ADM_RATE), ]
 
 #Summary Statistics of Admission#
 sink(file = "../../data/eda-output.txt", append=TRUE)
@@ -374,35 +375,42 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histgram of admission rate.png", width=800, height=600)
-hist(ad, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
+png(filename = "../../images/histogram of admission rate.png", width=800, height=600)
+hist(ad$ADM_RATE, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
 dev.off()
 
+png(filename = "../../images/scatterplot admission rate and completion rate.png", width=800, height=600)
+plot((ad$ADM_RATE), (ad$C150_4_POOLED), main = "scatterplot of Admission rate and Completion rate"
+     , xlab = "admission rate", ylab="completion rate")
+dev.off()
 
 
 #####################Retention Rate####################################
 #RET_FT4
 ##First-time, full-time student retention rate at four-year institutions
 sum(as.numeric(is.na(dat1$RET_FT4))) #464
-re = na.omit(dat1$RET_FT4)
-re = re[which(re!=0)]
+re = com_demo[com_demo$RET_FT4!=0,]
+re = re[!is.na(re$RET_FT4), ]
 
 #Summary Statistics of Admission#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("F. Summary Statistics Of Retention rate\n\n")
-cat(summary(re), "\n")
-cat("Stadard Deviation. : ", sd(re),"\n")
-cat("Range. : ", max(re)-min(re)," \n")
-cat("IQR. : ", IQR(re),"\n")
+cat(summary(re$RET_FT4), "\n")
+cat("Stadard Deviation. : ", sd(re$RET_FT4),"\n")
+cat("Range. : ", max(re$RET_FT4)-min(re$RET_FT4)," \n")
+cat("IQR. : ", IQR(re$RET_FT4),"\n")
 cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histgram of retention rate.png", width=800, height=600)
-hist(re, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
+png(filename = "../../images/histogram of retention rate.png", width=800, height=600)
+hist(re$RET_FT4, col = "#5679DF", breaks = 10, main = "Histogram of retention rate")
 dev.off()
 
-
+png(filename = "../../images/scatterplot retention rate and completion rate.png", width=800, height=600)
+plot((re$RET_FT4), (re$C150_4_POOLED), main = "scatterplot of retention rate and Completion rate"
+     , xlab = "retention rate", ylab="completion rate")
+dev.off()
 
 #####################total cost of attendance####################################
 #NPT4_PRIV
@@ -412,9 +420,9 @@ dev.off()
 sum(as.numeric(is.na(dat1$NPT4_PRIV))) #841
 sum(as.numeric(is.na(dat1$NPT4_PUB))) #2071
 
-merge(dat1$NPT4_PRIV,dat1$NPT4_PUB)
+cost = merge(dat1$NPT4_PRIV,dat1$NPT4_PUB)
 
-
+dat1$NPT4_PRIV
 re = na.omit(dat1$RET_FT4)
 re = re[which(re!=0)]
 
@@ -429,7 +437,7 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histgram of retention rate.png", width=800, height=600)
+png(filename = "../../images/histogram of retention rate.png", width=800, height=600)
 hist(re, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
 dev.off()
 
