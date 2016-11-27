@@ -183,11 +183,11 @@ boxplot(com_demo2$UGDS_WHITE*100, com_demo2$UGDS_BLACK*100
         , names = c("white", "black", "hispanic", "asian"))
 dev.off()
 
-###################################ANOVA analysis of completion rate by demograhic percentage###
-white1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_WHITE)
-black1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_BLACK)
-hisp1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_HISP)
-asian1 = aov(com_demo2$C150_4_POOLED~com_demo2$UGDS_ASIAN)
+####################ANOVA analysis of demographic completion rate by demograhic percentage###
+white1 = aov(com_demo2$C150_4_WHITE~com_demo2$UGDS_WHITE)
+black1 = aov(com_demo2$C150_4_BLACK~com_demo2$UGDS_BLACK)
+hisp1 = aov(com_demo2$C150_4_HISP~com_demo2$UGDS_HISP)
+asian1 = aov(com_demo2$C150_4_ASIAN~com_demo2$UGDS_ASIAN)
 
 summary(white1)
 summary(black1)
@@ -246,41 +246,22 @@ sink()
 
 
 png(filename = "../../images/histgram of Three year repayment rate for completers.png", width=800, height=600)
-hist(yr3*100, col = "#5679DF", breaks = 20, main = "Histogram of Three year repayment rate for completers")
+hist(yr3*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
+     main = "Histogram of Three year repayment rate for completers")
 dev.off()
 png(filename = "../../images/histgram of Five year repayment rate for completers.png", width=800, height=600)
-hist(yr5*100, col = "#5679DF", breaks = 20, main = "Histogram of Five year repayment rate for completers")
+hist(yr5*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
+     main = "Histogram of Five year repayment rate for completers")
 dev.off()
 png(filename = "../../images/histgram of Seven year repayment rate for completers.png", width=800, height=600)
-hist(yr7*100, col = "#5679DF", breaks = 20, main = "Histogram of Seven year repayment rate for completers")
+hist(yr7*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
+     main = "Histogram of Seven year repayment rate for completers")
 dev.off()
+
 
 
 ###############################Median earning###################################
-#####################Not Available#############################################
 ##Data exists prior to 2014_2013. Therefore using MERGED2012_13_PP.csv###
-
-dat2 = read.csv("../../data/MERGED2012_13_PP.csv", stringsAsFactors = FALSE, na.strings = 'NULL')
-colnames(dat2) = c("UNITID",names(dat2)[-1])
-
-dat_ca_2 = subset(dat2, STABBR == 'CA')
-flag=numeric(0)
-for(i in 1:length(dat_ca_2$UNITID))
-{
-  for(j in 1:length(dat1$UNITID))
-  {
-    if(dat_ca_2$UNITID[i] == dat1$UNITID[j])
-    {
-      flag[i] = 1
-      break
-    }
-    else{
-      flag[i] = 0
-    }
-  }
-}
-
-dat2 = subset(dat_ca_2, flag == 1)
 
 #MD_EARN_WNE_P10
 ##Median earnings of students working and not enrolled 10 years after entry
@@ -291,15 +272,15 @@ dat2 = subset(dat_ca_2, flag == 1)
 
 
 #The number of NAs in Median Earning on year after 6,8,10 years
-sum(as.numeric(is.na(dat2$MD_EARN_WNE_P6))) #14
-sum(as.numeric(is.na(dat2$MD_EARN_WNE_P8))) #14
-sum(as.numeric(is.na(dat2$MD_EARN_WNE_P10))) #14
+sum(as.numeric(is.na(dat1$MD_EARN_WNE_P6))) #154
+sum(as.numeric(is.na(dat1$MD_EARN_WNE_P8))) #154
+sum(as.numeric(is.na(dat1$MD_EARN_WNE_P10))) #154
 
 #Since the column class is character becuase "PrivacySuppressed" in the variables
 #Need to convert colums into numeric data.
-m6 = na.omit(as.numeric(dat2$MD_EARN_WNE_P6))
-m8 = na.omit(as.numeric(dat2$MD_EARN_WNE_P8))
-m10 = na.omit(as.numeric(dat2$MD_EARN_WNE_P10))
+m6 = na.omit(as.numeric(dat1$MD_EARN_WNE_P6))
+m8 = na.omit(as.numeric(dat1$MD_EARN_WNE_P8))
+m10 = na.omit(as.numeric(dat1$MD_EARN_WNE_P10))
 
 
 sink(file = "../../data/eda-output.txt", append=TRUE)
@@ -330,18 +311,34 @@ cat("\n\n")
 sink()
 
 png(filename = "../../images/histgram of Median Earning after 6 year(log transfromed).png", width=800, height=600)
-hist(log(m6), col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 6 year"
-     , xlab = "log transformed", xlim = c(9,12))
-dev.off()
-png(filename = "../../images/histgram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
-hist(log(m8), col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
-     , xlab = "log transformed", xlim = c(9,12))
-dev.off()
-png(filename = "../../images/histgram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
-hist(log(m10), col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 10 year"
-     , xlab = "log transformed", xlim = c(9,12))
+md1_log = log(m6)
+md1 = hist(md1_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 6 year"
+     , xlab = "Earning(log transformed)", xlim = c(9,12))
+md1_xfit = seq(from = 9, to = 12,length=100) 
+md1_yfit = dnorm(md1_xfit,mean=mean(md1_log),sd=sd(md1_log)) 
+md1_yfit  =  md1_yfit*diff(md1$mids[1:2])*length(md1_log) 
+lines(md1_xfit, md1_yfit, col="red", lwd=2)
 dev.off()
 
+png(filename = "../../images/histgram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
+md2_log = log(m8)
+md2 = hist(md2_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
+     , xlab = "Earning(log transformed)", xlim = c(9,12))
+md2_xfit = seq(from = 9, to = 12,length=100) 
+md2_yfit = dnorm(md2_xfit,mean=mean(md2_log),sd=sd(md2_log)) 
+md2_yfit  =  md2_yfit*diff(md2$mids[1:2])*length(md2_log) 
+lines(md2_xfit, md2_yfit, col="red", lwd=2)
+dev.off()
+
+png(filename = "../../images/histgram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
+md3_log = log(m10)
+md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
+           , xlab = "Earning(log transformed)", xlim = c(9,12))
+md3_xfit = seq(from = 9, to = 12,length=100) 
+md3_yfit = dnorm(md3_xfit,mean=mean(md3_log),sd=sd(md3_log)) 
+md3_yfit  =  md3_yfit*diff(md3$mids[1:2])*length(md3_log) 
+lines(md3_xfit, md3_yfit, col="red", lwd=2)
+dev.off()
 
 
 #####################Admission rate####################################
