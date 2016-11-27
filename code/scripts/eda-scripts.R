@@ -698,19 +698,53 @@ cat("\n\n")
 sink()
 
 
-
-
-
 #Creating Scatterplotmatrix
-png("../../images/scatterplot-matrix.png", width=800, height=600)
-pairs(~income+limit+rating+cards+age+education+balance
-      , data=quant
-      , main="Scatterplot matrix among quantative variables")
+png("../../images/scatterplot-matrix1.png", width=800, height=600)
+pairs(C150_4_POOLED
+      ~UGDS_WHITE+UGDS_BLACK+UGDS_ASIAN+UGDS_HISP
+      , data=cor_overall2
+      , main="Scatterplot matrix1")
+dev.off()
+
+png("../../images/scatterplot-matrix2.png", width=800, height=600)
+pairs(C150_4_POOLED
+      ~COMPL_RPY_3YR_RT+COMPL_RPY_5YR_RT+COMPL_RPY_7YR_RT
+      , data=cor_overall2
+      , main="Scatterplot matrix2")
+dev.off()
+
+png("../../images/scatterplot-matrix3.png", width=800, height=600)
+pairs(C150_4_POOLED
+      ~ADM_RATE+RET_FT4
+      +cost
+      +DEBT_MDN + PCTPELL 
+      , data=cor_overall2
+      , main="Scatterplot matrix3")
 dev.off()
 
 
+png("../../images/scatterplot-matrix4.png", width=800, height=600)
+pairs(C150_4_POOLED
+      ~ SAT_AVG
+      +MD_EARN_WNE_P6 + MD_EARN_WNE_P8 + MD_EARN_WNE_P10
+      + CCSIZSET + CONTROL 
+      , data=cor_overall2
+      , main="Scatterplot matrix4")
+dev.off()
 
-
+png("../../images/scatterplot-matrix-all.png", width=2000, height=2000)
+pairs(C150_4_POOLED
+      ~ UGDS_WHITE+UGDS_BLACK+UGDS_ASIAN+UGDS_HISP
+      + COMPL_RPY_3YR_RT+COMPL_RPY_5YR_RT+COMPL_RPY_7YR_RT
+      + ADM_RATE+RET_FT4
+      + cost
+      + DEBT_MDN + PCTPELL 
+      + SAT_AVG
+      + MD_EARN_WNE_P6 + MD_EARN_WNE_P8 + MD_EARN_WNE_P10
+      + CCSIZSET + CONTROL 
+      , data=cor_overall2
+      , main="Scatterplot matrix of all variables")
+dev.off()
 
 
 
