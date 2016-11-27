@@ -132,3 +132,12 @@ IQR. :  0.1521
 
 
 
+G. Summary Statistics Of Cost of attendance rate
+
+1158 14740 19580 19920 24520 46350 
+Stadard Deviation. :  7312.08 
+Range. :  45193  
+IQR. :  9771 
+
+
+
