@@ -452,6 +452,39 @@ plot((cost$cost), (cost$C150_4_POOLED), main = "scatterplot of cost of attendace
 dev.off()
 
 
+#####################Median Debt####################################
+#DEBT_MDN
+##The median original amount of the loan principal upon entering repayment
+debt = com_demo
+debt$DEBT_MDN = as.numeric(debt$DEBT_MDN)
+debt$DEBT_MDN[is.na(debt$DEBT_MDN)] = 0
+debt = debt[debt$DEBT_MDN!=0,]
+
+#Summary Statistics of Median Debt#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("H. Summary Statistics Of Median Debt\n\n")
+cat(summary(debt$DEBT_MDN), "\n")
+cat("Stadard Deviation. : ", sd(debt$DEBT_MDN),"\n")
+cat("Range. : ", max(debt$DEBT_MDN)-min(debt$DEBT_MDN)," \n")
+cat("IQR. : ", IQR(debt$DEBT_MDN),"\n")
+cat("\n")
+cat("\n\n")
+sink()
+
+png(filename = "../../images/histogram of Median Debt.png", width=800, height=600)
+hist(debt$DEBT_MDN, col = "#5679DF", breaks = 20
+     , main = "Histogram of Median Debt", xlab = "Median Debt")
+dev.off()
+
+png(filename = "../../images/scatterplot of median debt and completion rate.png", width=800, height=600)
+plot((debt$DEBT_MDN), (debt$C150_4_POOLED), main = "scatterplot of median debt and completion rate"
+     , xlab = "Median Debt", ylab="completion rate")
+dev.off()
+
+
+#####################Median Debt####################################
+
+
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
 
