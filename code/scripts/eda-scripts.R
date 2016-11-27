@@ -197,17 +197,6 @@ boxplot(com_demo2$UGDS_WHITE*100, com_demo2$UGDS_BLACK*100
         , names = c("white", "black", "hispanic", "asian"))
 dev.off()
 
-####################ANOVA analysis of demographic completion rate by demograhic percentage###
-#white1 = aov(com_demo2$C150_4_WHITE~com_demo2$UGDS_WHITE)
-#black1 = aov(com_demo2$C150_4_BLACK~com_demo2$UGDS_BLACK)
-#hisp1 = aov(com_demo2$C150_4_HISP~com_demo2$UGDS_HISP)
-#asian1 = aov(com_demo2$C150_4_ASIAN~com_demo2$UGDS_ASIAN)
-
-#summary(white1)
-#summary(black1)
-#summary(hisp1)
-#summary(asian1)
-################################################################################################
 
 ######################################################################################
 ###############################Repayment rate on FAFSA################################
@@ -543,13 +532,10 @@ dev.off()
 ##Carnegie Classification -- size and setting
 summary(com_demo$CCSIZSET)
 
-table(com_demo$CCSIZSET)
-
 #Summary Statistics of Average Sat score#
-
 sink(file = "../../data/eda-output.txt", append=TRUE)
-cat("2. Explanatory Analysis of Categorical Varibles(represented by numbers 6 to 17)\n\n")
-cat("K. Summary Statistics Of Size of School\n\n")
+cat("2. Explanatory Analysis of Categorical Varibles\n\n")
+cat("K. Summary Statistics Of Size of School(represented by numbers 6 to 17,from small to large)\n\n")
 cat("frequency table Of Size of School\n\n")
 write.table(table(com_demo$CCSIZSET), row.names = FALSE, col.names = FALSE, quote = FALSE)
 cat("\n")
@@ -575,6 +561,48 @@ anova_size = aov(com_demo$C150_4_POOLED ~ com_demo$CCSIZSET)
 summary(anova_size)
 sink(file = "../../data/eda-output.txt", append = TRUE)
 cat("Anova Analysis of Size of school on completion rate\n\n")
+summary(anova_size)
+cat("\n")
+cat("\n\n")
+sink()
+
+
+########################Type of institution#################################
+#CONTROL
+##Control of institution(public/ private(non-profit)/ private(profit))
+summary(com_demo$CONTROL)
+sum(as.numeric(is.na(com_demo$CONTROL)))
+
+#Summary Statistics of type of institution#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("L. Summary Statistics Of Type of institutions\n\n")
+cat("frequency table Of Size of School\n\n")
+write.table(table(com_demo$CONTROL), row.names = FALSE, col.names = FALSE, quote = FALSE)
+cat("1 : public, 2: private(non-profit), 3:private(profit)\n")
+cat("\n")
+cat("Relative frequency table Of Type of School\n\n")
+write.table(prop.table(table(com_demo$CONTROL)), row.names = FALSE, col.names = FALSE, quote = FALSE)
+cat("1 : public, 2: private(non-profit), 3:private(profit)\n")
+cat("\n\n")
+sink()
+
+#Creating barcharts of Size of school
+png(filename = "../../images/Barchart of Type of school.png", width=800, height=600)
+barplot(prop.table(table(com_demo$CONTROL)), main = "Barchart of Type of school"
+        , xlab = "1 : public, 2: private(non-profit), 3:private(profit)", ylab = "relative frequecny", col = "#5679DF")
+dev.off()
+
+#Creating boxplots of Size of school
+png(filename = "../../images/Boxplot of Type of school on completion rate.png", width=800, height=600)
+boxplot(com_demo$C150_4_POOLED ~ com_demo$CONTROL, main = "boxplot of Type of school on completion rate"
+        , xlab = "1 : public, 2: private(non-profit), 3:private(profit)", ylab = "completion rate", , col = "#5679DF")
+dev.off()
+
+#Anova analysis of Type of School on completion rate.
+anova_type = aov(com_demo$CONTROL ~ com_demo$CCSIZSET)
+summary(anova_type)
+sink(file = "../../data/eda-output.txt", append = TRUE)
+cat("Anova Analysis of Type of school on completion rate\n\n")
 summary(anova_size)
 cat("\n")
 cat("\n\n")
