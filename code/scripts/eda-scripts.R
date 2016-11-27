@@ -114,17 +114,30 @@ boxplot(com_demo$C150_4_WHITE*100, com_demo$C150_4_BLACK*100
         , names = c("white", "black", "hispanic", "asian", "overall"))
 dev.off()
 
-############################Maybe correlation OR anova analysis############################
-com_white = aov(com_demo$C150_4_POOLED~com_demo$C150_4_WHITE)
-com_black = aov(com_demo$C150_4_POOLED~com_demo$C150_4_BLACK)
-com_hisp = aov(com_demo$C150_4_POOLED~com_demo$C150_4_HISP)
-com_asian = aov(com_demo$C150_4_POOLED~com_demo$C150_4_ASIAN)
 
-summary(com_white)
-summary(com_black)
-summary(com_hisp)
-summary(com_asian)
-###########################################################################################
+png(filename = "../../images/scatterplot of overall completion rate and completion rate of white.png", width=800, height=600)
+plot(com_demo$C150_4_POOLED,com_demo$C150_4_WHITE
+     , main = "scatterplot of overall completion rate and completion rate of white"
+     , xlab = "Completion rate", ylab = "Completion rate of white ")
+dev.off()
+
+png(filename = "../../images/scatterplot of overall completion rate and completion rate of black.png", width=800, height=600)
+plot(com_demo$C150_4_POOLED,com_demo$C150_4_BLACK
+     , main = "scatterplot of overall completion rate and completion rate of black"
+     , xlab = "Completion rate", ylab = "Completion rate of black ")
+dev.off()
+
+png(filename = "../../images/scatterplot of overall completion rate and completion rate of hispanic.png", width=800, height=600)
+plot(com_demo$C150_4_POOLED,com_demo$C150_4_HISP
+     , main = "scatterplot of overall completion rate and completion rate of hispanic"
+     , xlab = "Completion rate", ylab = "Completion rate of hispanic ")
+dev.off()
+
+png(filename = "../../images/scatterplot of overall completion rate and completion rate of asian.png", width=800, height=600)
+plot(com_demo$C150_4_POOLED,com_demo$C150_4_ASIAN
+     , main = "scatterplot of overall completion rate and completion rate of asian"
+     , xlab = "Completion rate", ylab = "Completion rate of asian")
+dev.off()
 
 
 #####################################################################################
@@ -346,12 +359,12 @@ dev.off()
 ##Admission rate
 
 #The number of NAs in Median earning in 6,8,10 years after entry
-sum(as.numeric(is.na(dat1$ADM_RATE))) #81
+sum(as.numeric(is.na(dat1$ADM_RATE))) #868
 ad = na.omit(dat1$ADM_RATE)
 
 #Summary Statistics of Admission#
 sink(file = "../../data/eda-output.txt", append=TRUE)
-cat("C. Summary Statistics Of Admission rate\n\n")
+cat("E. Summary Statistics Of Admission rate\n\n")
 cat(summary(ad), "\n")
 cat("Stadard Deviation. : ", sd(ad),"\n")
 cat("Range. : ", max(ad)-min(ad)," \n")
@@ -363,37 +376,6 @@ sink()
 png(filename = "../../images/histgram of admission rate.png", width=800, height=600)
 hist(ad, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
 dev.off()
-
-###############Compare complete rates to demographic#################################
-#(Demographic graduation rate/Whole Graduation rate (make sure these are over the same time frame))
-
-com_demo_w = subset(dat1, (!is.na(dat1$C150_4_WHITE)) & (!is.na(dat1$C150_4_BLACK)) &
-                    (!is.na(dat1$C150_4_HISP)) & (!is.na(dat1$C150_4_ASIAN)) & (!is.na(dat1$C150_4)))
-
-png(filename = "../../images/scatterplot of completion rate of white.png", width=800, height=600)
-plot(com_demo_w$C150_4,com_demo_w$C150_4_WHITE
-     , main = "scatter plot of overall completion rate and completion rate of white"
-     , xlab = "Completion rate", ylab = "Completion rate of white ")
-dev.off()
-
-png(filename = "../../images/scatterplot of completion rate of black.png", width=800, height=600)
-plot(com_demo_w$C150_4,com_demo_w$C150_4_BLACK
-     , main = "scatter plot of overall completion rate and completion rate of black"
-     , xlab = "Completion rate", ylab = "Completion rate of black ")
-dev.off()
-
-png(filename = "../../images/scatterplot of completion rate of hispanic.png", width=800, height=600)
-plot(com_demo_w$C150_4,com_demo_w$C150_4_HISP
-     , main = "scatter plot of overall completion rate and completion rate of hispanic"
-     , xlab = "Completion rate", ylab = "Completion rate of hispanic ")
-dev.off()
-
-png(filename = "../../images/scatterplot of completion rate of asian.png", width=800, height=600)
-plot(com_demo_w$C150_4,com_demo_w$C150_4_ASIAN
-     , main = "scatter plot of overall completion rate and completion rate of asian"
-     , xlab = "Completion rate", ylab = "Completion rate of asian")
-dev.off()
-
 
 
 ##############################################################################################
