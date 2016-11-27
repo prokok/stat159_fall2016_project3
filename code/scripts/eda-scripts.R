@@ -1,3 +1,4 @@
+library(plyr)
 #setwd("C:/Users/vlfgn/Desktop/Clean/stat159_fall2016_project3/code/scripts")
 #Loading the raw dataset
 #Focus on the 4 year universities(high overall graduation rates)
@@ -345,7 +346,7 @@ dev.off()
 
 png(filename = "../../images/histgram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
 md3_log = log(m10)
-md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
+md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 10 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
 md3_xfit = seq(from = 9, to = 12,length=100) 
 md3_yfit = dnorm(md3_xfit,mean=mean(md3_log),sd=sd(md3_log)) 
@@ -378,8 +379,68 @@ hist(ad, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
 dev.off()
 
 
+
+#####################Retention Rate####################################
+#RET_FT4
+##First-time, full-time student retention rate at four-year institutions
+sum(as.numeric(is.na(dat1$RET_FT4))) #464
+re = na.omit(dat1$RET_FT4)
+re = re[which(re!=0)]
+
+#Summary Statistics of Admission#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("F. Summary Statistics Of Retention rate\n\n")
+cat(summary(re), "\n")
+cat("Stadard Deviation. : ", sd(re),"\n")
+cat("Range. : ", max(re)-min(re)," \n")
+cat("IQR. : ", IQR(re),"\n")
+cat("\n")
+cat("\n\n")
+sink()
+
+png(filename = "../../images/histgram of retention rate.png", width=800, height=600)
+hist(re, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
+dev.off()
+
+
+
+#####################total cost of attendance####################################
+#NPT4_PRIV
+##Average net price for Title IV institutions (private for-profit and nonprofit institutions)
+#NPT4_PUB
+##Average net price for Title IV institutions (public institutions)
+sum(as.numeric(is.na(dat1$NPT4_PRIV))) #841
+sum(as.numeric(is.na(dat1$NPT4_PUB))) #2071
+
+merge(dat1$NPT4_PRIV,dat1$NPT4_PUB)
+
+
+re = na.omit(dat1$RET_FT4)
+re = re[which(re!=0)]
+
+#Summary Statistics of Admission#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("F. Summary Statistics Of Retention rate\n\n")
+cat(summary(re), "\n")
+cat("Stadard Deviation. : ", sd(re),"\n")
+cat("Range. : ", max(re)-min(re)," \n")
+cat("IQR. : ", IQR(re),"\n")
+cat("\n")
+cat("\n\n")
+sink()
+
+png(filename = "../../images/histgram of retention rate.png", width=800, height=600)
+hist(re, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
+dev.off()
+
+
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
+
+
+
+
+
 #overall Completion rate: C150_4
 #Cost of attendance: NPT4_PUB/NPT4_PRIV
 #Size of school: CCSIZSET
