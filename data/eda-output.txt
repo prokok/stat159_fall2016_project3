@@ -150,3 +150,12 @@ IQR. :  6807
 
 
 
+I. Summary Statistics Of Pell Grant rate
+
+0.0671 0.2582 0.3611 0.3894 0.4844 0.8919 
+Stadard Deviation. :  0.1756232 
+Range. :  0.8248  
+IQR. :  0.22615 
+
+
+
