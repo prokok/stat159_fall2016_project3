@@ -209,3 +209,142 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 
 
+L. Summary Statistics Of Type of institutions
+
+frequency table Of Size of School
+
+1 521
+2 714
+3 209
+1 : public, 2: private(non-profit), 3:private(profit)
+
+Relative frequency table Of Type of School
+
+1 0.360803324099723
+2 0.494459833795014
+3 0.144736842105263
+1 : public, 2: private(non-profit), 3:private(profit)
+
+
+Anova Analysis of Type of school on completion rate
+
+                    Df Sum Sq Mean Sq F value Pr(>F)    
+com_demo$CCSIZSET    1  249.3  249.25   869.6 <2e-16 ***
+Residuals         1442  413.3    0.29                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+3. Correlation Matrix of Varibles
+
+                   CCUGPROF C150_4_POOLED C150_4_WHITE C150_4_ASIAN C150_4_BLACK C150_4_HISP UGDS_WHITE
+CCUGPROF          1.000e+00     6.029e-01    5.650e-01    3.839e-01    4.709e-01   4.601e-01  1.811e-01
+C150_4_POOLED                   1.000e+00    9.587e-01    6.375e-01    8.007e-01   7.817e-01  1.680e-01
+C150_4_WHITE                                 1.000e+00    6.064e-01    7.422e-01   7.420e-01  1.899e-01
+C150_4_ASIAN                                              1.000e+00    5.346e-01   5.981e-01  2.069e-03
+C150_4_BLACK                                                           1.000e+00   7.030e-01 -4.591e-03
+C150_4_HISP                                                                        1.000e+00  1.814e-02
+UGDS_WHITE                                                                                    1.000e+00
+UGDS_BLACK                                                                                             
+UGDS_ASIAN                                                                                             
+UGDS_HISP                                                                                              
+COMPL_RPY_3YR_RT                                                                                       
+COMPL_RPY_5YR_RT                                                                                       
+COMPL_RPY_7YR_RT                                                                                       
+ADM_RATE                                                                                               
+RET_FT4                                                                                                
+NPT4_PRIV                                                                                              
+NPT4_PUB                                                                                               
+DEBT_MDN                                                                                               
+PCTPELL                                                                                                
+CCSIZSET                                                                                               
+CONTROL                                                                                                
+SAT_AVG                                                                                                
+MD_EARN_WNE_P10                                                                                        
+MD_EARN_WNE_P6                                                                                         
+MD_EARN_WNE_P8                                                                                         
+cost                                                                                                   
+                 UGDS_BLACK UGDS_ASIAN  UGDS_HISP COMPL_RPY_3YR_RT COMPL_RPY_5YR_RT COMPL_RPY_7YR_RT   ADM_RATE
+CCUGPROF         -2.702e-01  1.914e-01 -1.535e-01        4.220e-01        4.328e-01        4.022e-01 -1.486e-01
+C150_4_POOLED    -4.007e-01  3.660e-01 -1.012e-01        6.376e-01        6.457e-01        6.313e-01 -3.568e-01
+C150_4_WHITE     -4.352e-01  3.389e-01 -7.312e-02        6.427e-01        6.431e-01        6.201e-01 -3.348e-01
+C150_4_ASIAN     -1.608e-01  2.895e-01 -5.208e-02        3.162e-01        2.912e-01        2.818e-01 -3.155e-01
+C150_4_BLACK     -2.139e-01  3.706e-01 -2.464e-02        4.312e-01        4.349e-01        4.371e-01 -3.833e-01
+C150_4_HISP      -2.434e-01  3.327e-01 -2.441e-02        4.482e-01        4.341e-01        4.433e-01 -3.689e-01
+UGDS_WHITE       -5.068e-01 -5.100e-01 -6.123e-01        4.740e-01        4.686e-01        4.227e-01  3.584e-01
+UGDS_BLACK        1.000e+00 -1.473e-01 -8.856e-02       -7.477e-01       -7.224e-01       -6.695e-01 -1.587e-01
+UGDS_ASIAN                   1.000e+00  2.746e-01        2.088e-01        2.181e-01        2.331e-01 -3.871e-01
+UGDS_HISP                               1.000e+00       -9.413e-02       -1.120e-01       -1.016e-01 -1.255e-01
+COMPL_RPY_3YR_RT                                         1.000e+00        9.280e-01        8.793e-01  3.565e-02
+COMPL_RPY_5YR_RT                                                          1.000e+00        9.140e-01  3.076e-02
+COMPL_RPY_7YR_RT                                                                           1.000e+00  1.900e-02
+ADM_RATE                                                                                              1.000e+00
+RET_FT4                                                                                                        
+NPT4_PRIV                                                                                                      
+NPT4_PUB                                                                                                       
+DEBT_MDN                                                                                                       
+PCTPELL                                                                                                        
+CCSIZSET                                                                                                       
+CONTROL                                                                                                        
+SAT_AVG                                                                                                        
+MD_EARN_WNE_P10                                                                                                
+MD_EARN_WNE_P6                                                                                                 
+MD_EARN_WNE_P8                                                                                                 
+cost                                                                                                           
+                    RET_FT4  NPT4_PRIV   NPT4_PUB   DEBT_MDN    PCTPELL   CCSIZSET    CONTROL    SAT_AVG
+CCUGPROF          5.062e-01  1.301e-01  5.047e-02  2.618e-01 -4.307e-01  3.767e-01  5.470e-02  5.419e-01
+C150_4_POOLED     8.505e-01  3.359e-01 -9.354e-02  4.796e-01 -6.786e-01  4.257e-01  2.432e-01  7.986e-01
+C150_4_WHITE      8.074e-01  3.507e-01 -1.257e-01  4.546e-01 -6.478e-01  4.033e-01  2.726e-01  7.598e-01
+C150_4_ASIAN      5.100e-01  2.703e-01 -1.382e-01  3.138e-01 -3.778e-01  1.971e-01  2.235e-01  5.298e-01
+C150_4_BLACK      6.897e-01  2.289e-01 -3.404e-02  3.466e-01 -4.897e-01  3.487e-01  1.363e-01  6.459e-01
+C150_4_HISP       6.719e-01  2.850e-01 -1.045e-01  3.511e-01 -4.786e-01  3.108e-01  2.048e-01  6.484e-01
+UGDS_WHITE        3.171e-02 -9.549e-02  1.984e-01  1.072e-01 -4.380e-01  4.110e-02 -9.211e-02  1.490e-01
+UGDS_BLACK       -3.129e-01 -1.085e-01 -1.134e-02 -6.421e-02  5.396e-01 -1.654e-01 -5.892e-02 -3.941e-01
+UGDS_ASIAN        4.702e-01  7.758e-02 -2.800e-02  1.273e-02 -1.161e-01  2.743e-01 -3.259e-03  4.279e-01
+UGDS_HISP         8.598e-05  9.299e-03 -1.178e-01 -1.547e-01  2.687e-01 -9.207e-03  1.701e-02 -1.308e-01
+COMPL_RPY_3YR_RT  5.247e-01  1.772e-01  2.753e-02  2.941e-01 -6.823e-01  2.609e-01  1.096e-01  5.303e-01
+COMPL_RPY_5YR_RT  5.398e-01  1.373e-01  6.414e-02  2.810e-01 -6.747e-01  3.091e-01  7.403e-02  5.428e-01
+COMPL_RPY_7YR_RT  5.313e-01  1.144e-01  8.411e-02  2.813e-01 -6.484e-01  3.206e-01  5.003e-02  5.327e-01
+ADM_RATE         -3.632e-01 -1.675e-01  1.590e-01 -3.604e-02  6.567e-02 -1.760e-01 -1.438e-01 -4.507e-01
+RET_FT4           1.000e+00  1.609e-01  3.547e-02  3.867e-01 -5.839e-01  4.911e-01  4.326e-02  7.478e-01
+NPT4_PRIV                    1.000e+00 -8.760e-01  5.282e-01 -2.823e-01 -2.214e-01  9.435e-01  2.237e-01
+NPT4_PUB                                1.000e+00 -3.019e-01  5.692e-03  3.626e-01 -9.234e-01 -3.856e-02
+DEBT_MDN                                           1.000e+00 -3.368e-01 -1.032e-01  4.638e-01  2.029e-01
+PCTPELL                                                       1.000e+00 -3.769e-01 -1.409e-01 -6.762e-01
+CCSIZSET                                                                 1.000e+00 -3.422e-01  5.316e-01
+CONTROL                                                                             1.000e+00  1.121e-01
+SAT_AVG                                                                                        1.000e+00
+MD_EARN_WNE_P10                                                                                         
+MD_EARN_WNE_P6                                                                                          
+MD_EARN_WNE_P8                                                                                          
+cost                                                                                                    
+                 MD_EARN_WNE_P10 MD_EARN_WNE_P6 MD_EARN_WNE_P8       cost
+CCUGPROF               3.358e-01      2.629e-01      3.153e-01  2.880e-01
+C150_4_POOLED          6.974e-01      6.394e-01      6.857e-01  5.030e-01
+C150_4_WHITE           6.754e-01      6.235e-01      6.676e-01  4.951e-01
+C150_4_ASIAN           4.485e-01      4.102e-01      4.367e-01  3.372e-01
+C150_4_BLACK           5.857e-01      5.254e-01      5.714e-01  3.748e-01
+C150_4_HISP            5.618e-01      5.203e-01      5.512e-01  3.997e-01
+UGDS_WHITE            -1.181e-01     -5.657e-02     -8.912e-02  4.166e-02
+UGDS_BLACK            -2.807e-01     -2.752e-01     -2.921e-01 -2.071e-01
+UGDS_ASIAN             5.491e-01      4.517e-01      5.176e-01  1.093e-01
+UGDS_HISP              1.021e-01      5.519e-02      8.726e-02 -1.099e-01
+COMPL_RPY_3YR_RT       5.440e-01      5.281e-01      5.529e-01  3.479e-01
+COMPL_RPY_5YR_RT       5.520e-01      5.223e-01      5.580e-01  3.155e-01
+COMPL_RPY_7YR_RT       5.482e-01      5.172e-01      5.546e-01  2.960e-01
+ADM_RATE              -3.602e-01     -3.261e-01     -3.492e-01 -1.302e-01
+RET_FT4                6.713e-01      5.953e-01      6.494e-01  3.273e-01
+NPT4_PRIV              3.151e-01      3.383e-01      3.330e-01  8.552e-01
+NPT4_PUB              -1.360e-01     -1.736e-01     -1.506e-01 -4.992e-01
+DEBT_MDN               3.578e-01      3.408e-01      3.584e-01  6.244e-01
+PCTPELL               -5.437e-01     -5.567e-01     -5.617e-01 -5.011e-01
+CCSIZSET               3.571e-01      3.187e-01      3.485e-01 -8.154e-03
+CONTROL                2.165e-01      2.528e-01      2.373e-01  7.027e-01
+SAT_AVG                6.671e-01      6.376e-01      6.629e-01  3.605e-01
+MD_EARN_WNE_P10        1.000e+00      9.347e-01      9.780e-01  4.200e-01
+MD_EARN_WNE_P6                        1.000e+00      9.653e-01  4.212e-01
+MD_EARN_WNE_P8                                       1.000e+00  4.364e-01
+cost                                                            1.000e+00
+
+
