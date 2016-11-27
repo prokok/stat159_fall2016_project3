@@ -113,4 +113,12 @@ Range. :  174500
 IQR. :  12800 
 
 
+E. Summary Statistics Of Admission rate
+
+0 0.5555 0.6996 0.6783 0.8238 1 
+Stadard Deviation. :  0.2031373 
+Range. :  1  
+IQR. :  0.268275 
+
+
 
