@@ -1,0 +1,116 @@
+1. Explanatory Analysis of Quantative Varibles
+
+A. Summary Statistics Of Completion Rate by demographics
+
+summary statistics of C150_4_WHITE 
+
+0.0357 0.4402 0.5699 0.5729 0.7 1 
+Stadard Deviation. :  0.1840151 
+Range. :  0.9643  
+IQR. :  0.25985 
+
+summary statistics of C150_4_BLACK 
+
+0.0077 0.2727 0.4224 0.4499 0.5954 1 
+Stadard Deviation. :  0.2244877 
+Range. :  0.9923  
+IQR. :  0.32275 
+
+summary statistics of C150_4_HISP 
+
+0.0105 0.3636 0.5 0.5193 0.6667 1 
+Stadard Deviation. :  0.2096337 
+Range. :  0.9895  
+IQR. :  0.3031 
+
+summary statistics of C150_4_ASIAN 
+
+0.0526 0.4286 0.5953 0.5995 0.7692 1 
+Stadard Deviation. :  0.231571 
+Range. :  0.9474  
+IQR. :  0.3406 
+
+
+
+B. Summary Statistics Of demographic percentage
+
+summary statistics of UGDS_WHITE 
+
+4e-04 0.3768 0.598 0.5461 0.7399 0.9714 
+Stadard Deviation. :  0.2398437 
+Range. :  0.971  
+IQR. :  0.363125 
+
+summary statistics of UGDS_BLACK 
+
+3e-04 0.0433 0.09035 0.1643 0.2056 0.9885 
+Stadard Deviation. :  0.1919385 
+Range. :  0.9882  
+IQR. :  0.16225 
+
+summary statistics of UGDS_HISP 
+
+7e-04 0.03542 0.06755 0.1154 0.135 0.9981 
+Stadard Deviation. :  0.1381707 
+Range. :  0.9974  
+IQR. :  0.09955 
+
+summary statistics of UGDS_ASIAN 
+
+2e-04 0.0096 0.0197 0.04054 0.0439 0.6387 
+Stadard Deviation. :  0.05930971 
+Range. :  0.6385  
+IQR. :  0.0343 
+
+
+
+C. Summary Statistics Of Repayment rate on FAFSA depending in 3,5,7 year
+
+summary statistics of Three year repayment rate for completers
+
+0.2195 0.6611 0.8566 0.789 0.9281 0.9914 
+Range. :  0.7718899  
+Stadard Deviation. :  0.1696337 
+IQR. :  0.2670361 
+
+summary statistics of Five year repayment rate for completers
+
+0.2323 0.7117 0.858 0.8017 0.9285 0.992 
+Stadard Deviation. :  0.15881 
+Range. :  0.7596391  
+IQR. :  0.216789 
+
+summary statistics of Seven year repayment rate for completers
+
+0.2222 0.769 0.8832 0.8419 0.9361 0.9909 
+Stadard Deviation. :  0.1233068 
+Range. :  0.7691799  
+IQR. :  0.1671085 
+
+
+
+D. Summary Statistics Of Median Earning after 6,8,10 year
+
+summary statistics of Median Earning after 6 year
+
+8400 26000 30200 31470 35100 115200 
+Stadard Deviation. :  9741.214 
+Range. :  106800  
+IQR. :  9100 
+
+summary statistics of Median Earning after 8 year
+
+11900 29200 34200 35710 40600 120600 
+Stadard Deviation. :  10679.77 
+Range. :  108700  
+IQR. :  11400 
+
+summary statistics of Median Earning after 10 year
+
+12000 31800 38800 39180 44600 186500 
+Stadard Deviation. :  11935.87 
+Range. :  174500  
+IQR. :  12800 
+
+
+
