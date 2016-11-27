@@ -608,12 +608,107 @@ cat("\n")
 cat("\n\n")
 sink()
 
+
 ##############################################################################################
 #######################Correlation for completion to other indicators#########################
 
+#Generating new dataframe: cor_overall to see the correlation between completion rate and variables###### 
+sat = com_demo
+sat$SAT_AVG = as.numeric(sat$SAT_AVG)
+sat$SAT_AVG[is.na(sat$SAT_AVG)] = 0
+sat = sat[sat$SAT_AVG!=0,]
+
+cor_overall = cost
+cor_overall$SAT_AVG = as.numeric(cor_overall$SAT_AVG)
+cor_overall$SAT_AVG[is.na(cor_overall$SAT_AVG)] = 0
+cor_overall = cor_overall[cor_overall$SAT_AVG!=0,]
+
+cor_overall$DEBT_MDN = as.numeric(cor_overall$DEBT_MDN)
+cor_overall$DEBT_MDN[is.na(cor_overall$DEBT_MDN)] = 0
+cor_overall = cor_overall[cor_overall$DEBT_MDN!=0,]
+
+summary(cor_overall$CCUGPROF)
+summary(cor_overall$C150_4_POOLED)
+summary(cor_overall$C150_4_WHITE)
+summary(cor_overall$C150_4_BLACK)
+summary(cor_overall$C150_4_ASIAN)
+summary(cor_overall$C150_4_HISP)
+
+summary(cor_overall$UGDS_WHITE)
+summary(cor_overall$UGDS_BLACK)
+summary(cor_overall$UGDS_ASIAN)
+summary(cor_overall$UGDS_HISP)
+
+#Removing Characters in repayment rate
+summary(cor_overall$COMPL_RPY_3YR_RT)
+cor_overall$COMPL_RPY_3YR_RT = as.numeric(cor_overall$COMPL_RPY_3YR_RT)
+cor_overall$COMPL_RPY_3YR_RT[is.na(cor_overall$COMPL_RPY_3YR_RT)] = 0
+cor_overall = cor_overall[cor_overall$COMPL_RPY_3YR_RT!=0,]
+
+summary(cor_overall$COMPL_RPY_5YR_RT)
+cor_overall$COMPL_RPY_5YR_RT = as.numeric(cor_overall$COMPL_RPY_5YR_RT)
+cor_overall$COMPL_RPY_5YR_RT[is.na(cor_overall$COMPL_RPY_5YR_RT)] = 0
+cor_overall = cor_overall[cor_overall$COMPL_RPY_5YR_RT!=0,]
+
+summary(cor_overall$COMPL_RPY_7YR_RT)
+cor_overall$COMPL_RPY_7YR_RT = as.numeric(cor_overall$COMPL_RPY_7YR_RT)
+cor_overall$COMPL_RPY_7YR_RT[is.na(cor_overall$COMPL_RPY_7YR_RT)] = 0
+cor_overall = cor_overall[cor_overall$COMPL_RPY_7YR_RT!=0,]
+
+#Removing Characters in median earning
+summary(cor_overall$MD_EARN_WNE_P6)
+cor_overall$MD_EARN_WNE_P6 = as.numeric(cor_overall$MD_EARN_WNE_P6)
+cor_overall$MD_EARN_WNE_P6[is.na(cor_overall$MD_EARN_WNE_P6)] = 0
+cor_overall = cor_overall[cor_overall$MD_EARN_WNE_P6!=0,]
+
+summary(cor_overall$MD_EARN_WNE_P8)
+cor_overall$MD_EARN_WNE_P8 = as.numeric(cor_overall$MD_EARN_WNE_P8)
+cor_overall$MD_EARN_WNE_P8[is.na(cor_overall$MD_EARN_WNE_P8)] = 0
+cor_overall = cor_overall[cor_overall$MD_EARN_WNE_P8!=0,]
+
+summary(cor_overall$MD_EARN_WNE_P10)
+cor_overall$MD_EARN_WNE_P10 = as.numeric(cor_overall$MD_EARN_WNE_P10)
+cor_overall$MD_EARN_WNE_P10[is.na(cor_overall$MD_EARN_WNE_P10)] = 0
+cor_overall = cor_overall[cor_overall$MD_EARN_WNE_P10!=0,]
+
+summary(cor_overall$ADM_RATE)
+summary(cor_overall$RET_FT4)
+summary(cor_overall$cost)
+summary(cor_overall$DEBT_MDN)
+summary(cor_overall$PCTPELL)
+summary(cor_overall$SAT_AVG)
+summary(cor_overall$CCSIZSET)
+summary(cor_overall$CONTROL)
+################################################################################
 
 
-#public/ private(non-profit)/ private(profit) : CONTROL
+############MAKING CORRELATION MATRIX###########
+
+cor_overall2 = subset(cor_overall, select=-c(UNITID,X,INSTNM))
+corr_matrix = cor(cor_overall2)
+
+upper_corr_matrix = format(corr_matrix, digits = 4)
+upper_corr_matrix[lower.tri(upper_corr_matrix, diag=FALSE)] = ""
+
+
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("3. Correlation Matrix of Varibles\n\n")
+print(as.data.frame(upper_corr_matrix))
+cat("\n\n")
+sink()
+
+
+
+
+
+#Creating Scatterplotmatrix
+png("../../images/scatterplot-matrix.png", width=800, height=600)
+pairs(~income+limit+rating+cards+age+education+balance
+      , data=quant
+      , main="Scatterplot matrix among quantative variables")
+dev.off()
+
+
 
 
 
