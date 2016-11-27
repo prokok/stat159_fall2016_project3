@@ -141,3 +141,12 @@ IQR. :  9771
 
 
 
+H. Summary Statistics Of Median Debt
+
+3500 13190 16680 16600 20000 36930 
+Stadard Deviation. :  5078.248 
+Range. :  33434  
+IQR. :  6807 
+
+
+
