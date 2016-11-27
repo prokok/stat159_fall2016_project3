@@ -159,3 +159,12 @@ IQR. :  0.22615
 
 
 
+J. Summary Statistics Of Average Sat score
+
+780 1000 1062 1087 1149 1545 
+Stadard Deviation. :  132.2474 
+Range. :  765  
+IQR. :  149.25 
+
+
+
