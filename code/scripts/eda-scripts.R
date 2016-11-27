@@ -482,7 +482,31 @@ plot((debt$DEBT_MDN), (debt$C150_4_POOLED), main = "scatterplot of median debt a
 dev.off()
 
 
-#####################Median Debt####################################
+#####################Percentage of Pell GRANT####################################
+#PCTPELL
+##Percentage of undergraduates who receive a Pell Grant
+pell = com_demo
+
+#Summary Statistics of Median Debt#
+sink(file = "../../data/eda-output.txt", append=TRUE)
+cat("I. Summary Statistics Of Pell Grant rate\n\n")
+cat(summary(pell$PCTPELL), "\n")
+cat("Stadard Deviation. : ", sd(pell$PCTPELL),"\n")
+cat("Range. : ", max(pell$PCTPELL)-min(pell$PCTPELL)," \n")
+cat("IQR. : ", IQR(pell$PCTPELL),"\n")
+cat("\n")
+cat("\n\n")
+sink()
+
+png(filename = "../../images/histogram of Pell Grant rate.png", width=800, height=600)
+hist(pell$PCTPELL, col = "#5679DF", breaks = 20
+     , main = "Histogram of Pell Grant rate", xlab = "Pell Grant rate")
+dev.off()
+
+png(filename = "../../images/scatterplot of Pell Grant rate and completion rate.png", width=800, height=600)
+plot((pell$PCTPELL), (pell$C150_4_POOLED), main = "scatterplot of Pell Grant rate and completion rate"
+     , xlab = "Pell Grant rate", ylab="completion rate")
+dev.off()
 
 
 ##############################################################################################
