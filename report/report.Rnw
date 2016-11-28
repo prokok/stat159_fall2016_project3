@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\title{Opportunities for Investing in Success for African American and Hispanic College Students}
+\author{Tim McGinley}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\date{\today}
+\maketitle
+
+<<setup, include=FALSE, cache=FALSE, echo=FALSE>>=
+library(knitr)
+#load("../data/regression.RData")
+opts_chunk$set(fig.align='left', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+
+\section{Abstract}
+This report for the <<<NGO>>> uses the national College Scorecard data to make recommendations for the best allocation of funds for the benefit of African American and Hispanic students.  This report builds a propreitary model to suggest what the graduation rates of these groups \empf{should} be based on other data from College Scorecard, and compared these results to the actual graduation rates for these demographics, identifying schools that are underperforming in these areas.  We then take a closer look at selected schools from this category to identify trends and specific insitutions whose minority students most need the support of the <<<NGO>>>.
+
+
+\section{Introduction}
+There can be no doubt that, in an increasingly divisive and frightening time for the future of our nation's most vulnerable minorities, ensuring the successful college education of our youth is more important than ever. The mission of your organization to promote the educational achievement of minority students is vital to the continued march towards equality in the United States, and this report is designed to help your organization target its capital investments where they are needed most.  There are over 2,000 four-year institutions in this country serving our nation's youth, and we've done the leg work for you in finding schools at risk for low graduation rates for African American and Hispanic students.
+
+\section{Data}
+The data originally comes from the Research Triangle Insitute, part of the U.S. Department of Education.  This is the data that powers \texttt{http://collegescorecard.ed.gov}, a website to help college-bound students find the best schools for their interests and other preferences.  While this provides a great resource for students, it also has fostered the collection of an incredible amount of data on the over 7,700 places of higher learning in the country, which we can use to answer deeper questions.  Data points are included for types of school, graduation rates, admitance rates, student body demographics, and literally thousands more.  
+
+The original data file spans 20 years and is too large to be practical to include with this report, so we've extracted just the last three annual iterations of the <<<NO VAR>>> relevant variables we've used to develop the information contained in this report.  This resulted in the more manageably sized \texttt{insert filename here} data set, which we have included with this report. 
+
+\section{Methodology}
+To conduct the analysis, first the data was loaded from \texttt{Advertising.csv} and the variables of interest (``TV'' for TV ad budget and ``Sales'' for units sold) were summarized. Summaries can be found in 
+\texttt{data/eda-output.txt}, and histograms of both variables can be can be found in \texttt{images/}.  
+
+To better understand how these two variables might relate to one another, I performed a simple linear regression analysis with the data.  The general idea is that we imagine changes one variable, in this case TV ad budgets, affects the beget changes in another variable, here sales figures. These are called the independent and dependent variables, respectively.  
+
+In a simple linear regression, we assume that this relationship can be described roughly by the equation $S = \beta_0+\beta_1(TV)$, where $\beta_0$ and $\beta_1$ are random variables determined from the data by a least-squares fit. The function \texttt{lm()} determines these variables from the data for us, and this information as well as a summary are located in \texttt{data/regression.Rdata}.  Scatterplots were constructed using \texttt{plot()} and \texttt{abline()}.
+
+\section{Results}
+
+Our linear regression analysis produced the results that appear in the following table. The entries in the table and the paragraph thereafter are inline code and will autogenerate if a different \texttt{Advertising.csv} is chosen. \\
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|r|r|r|r|}
+ & Estimate & Std. Error & t-value & Pr(>ItI) \\ \hline
+intercept & \Sexpr{round(reg_sum[[4]][1], 3)} & \Sexpr{round(reg_sum[[4]][3], 3)} & \Sexpr{round(reg_sum[[4]][5], 3)} & \Sexpr{round(reg_sum[[4]], 3)} \\
+TV ($\beta_1$) & \Sexpr{round(reg_sum[[4]][2], 3)} & \Sexpr{round(reg_sum[[4]][4], 3)} & \Sexpr{round(reg_sum[[4]][6], 3)} & \Sexpr{round(reg_sum[[4]][8], 3)}\\
+\end{tabular}
+\caption{Regression Information}
+\end{table}
+
+This analysis shows that, using this model, each thousand dollars spent on TV advertising for a product increases that product's sales by about $\Sexpr{round((reg_sum[[4]][2])*(1000), 1)}$ units.  It also implies that spending zero dollars on advertising results in sales of around $\Sexpr{round((reg_sum[[4]][1])*(1000), 0)}$ units, which is fairly suspect when one looks at the scatterplot of the dependent and independent variables against one another (The regression line is drawn in teal).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=160px]{../images/scatterplot-tv-sales.png}
+\label{fig:scatterplot}
+\end{figure}
+
+This shows that in practice, markets with small ad budgets do not have sales as high as the intercept of the linear model would suggest.  In general, this is a shortcoming of linear models:  any curvature to the data at all and the relationship becomes less reliable.  One can gleam some idea of how good a linear fit is at representing a relationship in data by calculating the following statistics about the fit.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+Statistic & Value \\ \hline
+RSS & \Sexpr{round(reg_sum[[6]][1], 3)} \\
+$R^2$ & \Sexpr{round(reg_sum[[8]][1], 3)} \\
+$F$-stat & \Sexpr{round(reg_sum[[10]][1], 3)} \\
+\end{tabular}
+\caption{Goodness of Fit Statistics}
+\end{table}
+
+Residual sum of squares, or \emph{RSS}, is a statistic computed using the forumula $RSS = \sum_{i=1}^n (y_i - f(x_i))^2$, where the $y_i$ values are the true value of the sales for a given markey while the $f(x_i)$ values are the expected sales based on the TV ad budget according to our model.  The least-squares fit is the fit that finds $\beta_0$ and $\beta_1$ so as to make the RSS as small as possible. 
+
+The $R^2$ statistic is a measure of how closely the data falls along the regression line.  If all data points were perfectly along this line, $R^2 = 1$.  Instead, we have $R^2 = \Sexpr{round(reg_sum[[8]][1], 3)}$.
+
+The F-statistic displayed above is the ratio 
+
+\begin{equation}
+F = \frac{\mbox{Mean Squared Error of }f(x_i) \mbox{values}}
+               {\mbox{Mean Squared Error of Error terms }{(y_i - f(x_i))}}
+\end{equation}
+and could be used if desired to asses goodness of fit using an F-test.
+
+\section{Conclusions}
+
+Clearly, the linear regression model fits this data well, but certainly not perfectly. An $R^2$ value of $\Sexpr{round(reg_sum[[8]][1], 3)}$ means the line fits the data reasonably well as $\Sexpr{round(reg_sum[[8]][1], 3)} > 0.5$.  This means that for the majority of markets, increasing the TV ad budget for a product by \$1000 will result in an increase in sales of about $\Sexpr{round(reg_sum[[4]][2], 3)}$ units. 
+
+
+\end{document}
