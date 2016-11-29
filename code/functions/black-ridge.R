@@ -12,10 +12,10 @@ scaled_data <- read.csv('../../data/scaled-predictors.csv')
 scaled_data <- na.omit(scaled_data)
 
 #data for blacks
-test_data = as.matrix(scaled_data[,-c(1,2,3,ncol(scaled_data))])
+test_data <- as.matrix(scaled_data[,-c(1,2,3,ncol(scaled_data))])
 
 # Loading tests of predictor subset and obervation subset
-r = ncol(test_data)
+r <- ncol(test_data)
 
 train <- sample(1:length(test_data[,1]), 400)
 
@@ -50,19 +50,17 @@ ridge_mse <- sum(R_squared)/length(R_squared)
 ridge_model <- glmnet(as.matrix(test_data[,-ncol(test_data)]), as.matrix(test_data[,ncol(test_data)]), standardize = FALSE,
                       intercept = FALSE, lambda = ridge_lambda_min, alpha = 0)
 
-coefs = ridge_model$beta
+coefs <- ridge_model$beta
 
-x_vals = test_data[,-ncol(test_data)]
-y_vals = test_data[,ncol(test_data)]
+x_vals <- test_data[,-ncol(test_data)]
+y_vals <- test_data[,ncol(test_data)]
 
 
 # Largest Residuals
-fitted_vals = apply(x_vals, 1, function(x) sum(x * coefs))
-resid = (fitted_vals - y_vals)
+fitted_vals <- apply(x_vals, 1, function(x) sum(x * coefs))
+resid <- (fitted_vals - y_vals)
 
-ridge_black = cbind(scaled_data, resid)
-ridge_black = ridge_black[order(ridge_black$resid, decreasing = TRUE),]
+ridge_black <- cbind(scaled_data, resid)
+ridge_black <- ridge_black[order(ridge_black$resid, decreasing = TRUE),]
 
 write.csv(ridge_black, "../../data/ranked-ridge-black.csv")
-
-

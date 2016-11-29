@@ -1,6 +1,7 @@
 # Data Cleaning
 
 dat <- read.csv("../../data/subset-data.csv")[,-1]
+aux_data <- read.csv("../../data/aux-data.csv")[,-1]
 
 # Scaled Test Sets
 pred_black = na.omit(data.frame(dat[,"UNTID", "UGDS_BLACK", "COMPL_RPY_5YR_RT",]))
@@ -19,6 +20,7 @@ dat$DEBT_MDN = make_numeric(dat$DEBT_MDN)
 dat$MD_EARN_WNE_P10 = make_numeric(dat$MD_EARN_WNE_P10)
 dat$MD_EARN_WNE_P6 = make_numeric(dat$MD_EARN_WNE_P6)
 dat$MD_EARN_WNE_P8 = make_numeric(dat$MD_EARN_WNE_P8)
+aux_data$total_grad = make_numeric(aux_data$total_grad)
 
 # Make to total cost vector
 dat$NPT4_PUB[is.na(dat$NPT4_PUB)] = dat$NPT4_PRIV[is.na(dat$NPT4_PUB)]
@@ -27,8 +29,7 @@ dat$NPT4_PUB[is.na(dat$NPT4_PUB)] = dat$NPT4_PRIV[is.na(dat$NPT4_PUB)]
 demo = dat[, c("UGDS_WHITE", "C150_4_WHITE", "C150_4_ASIAN", "UGDS_ASIAN", 
                "UGDS_BLACK", "C150_4_BLACK", "UGDS_HISP", "C150_4_HISP")]
 demo[is.na(demo)] <- 0
-grad_total = demo$UGDS_WHITE*demo$C150_4_WHITE + demo$C150_4_ASIAN*demo$UGDS_ASIAN + 
-  demo$UGDS_BLACK*demo$C150_4_BLACK + demo$UGDS_HISP*demo$C150_4_HISP
+grad_total = aux_data$total_grad
 
 #data to be scaled
 preds = cbind(dat[,c("UGDS_BLACK", "UGDS_HISP", "COMPL_RPY_5YR_RT", "NPT4_PUB", 
