@@ -32,10 +32,6 @@ h=hist(x, breaks = 20, col = '#5679DF'
        , xlab = "Percentage Rate(percentage)"
        , main = "Completion Rate in 4 year university(undergraduate)"
        , xlim = c(0,100), ylim = c(0,260))
-xfit = seq(0,100,length=100) 
-yfit1 = dnorm(xfit,mean=mean(x),sd=sd(x)) 
-yfit1 = yfit1*diff(h$mids[1:2])*length(x) 
-lines(xfit, yfit1, col="red", lwd=2)
 dev.off()
 
 
@@ -83,11 +79,12 @@ cat("A. Summary Statistics Of Completion Rate by demographics\n\n")
 for(i in 1:length(names_demo))
 {
   cat("summary statistics of", names_demo[i], "\n\n")
+  cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
   cat(summary(com_demo[,names_demo[i]]), "\n")
-  cat("Stadard Deviation. : ", sd(com_demo[,names_demo[i]]),"\n")
+  cat("Standard Deviation. : ", sd(com_demo[,names_demo[i]]),"\n")
   cat("Range. : ", max(com_demo[,names_demo[i]])-min(com_demo[,names_demo[i]])," \n")
   cat("IQR. : ", IQR(com_demo[,names_demo[i]]),"\n")
-  cat("\n")
+  cat("\n\n")
 }
 cat("\n\n")
 sink()
@@ -100,10 +97,6 @@ for(i in 1:length(names_demo))
   k1 = com_demo[,names_demo[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of completion rate of "
                                         ,names_demo[i]), col = "#5679DF", xlab = names_demo[i])
-  xfit = seq(from = 0, to = 100,length=100) 
-  yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
-  yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
-  lines(xfit, yfit, col="red", lwd=2)
   dev.off()
 }
 
@@ -164,8 +157,9 @@ cat("B. Summary Statistics Of demographic percentage\n\n")
 for(i in 1:length(names_demo2))
 {
   cat("summary statistics of", names_demo2[i], "\n\n")
+  cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
   cat(summary(com_demo2[,names_demo2[i]]), "\n")
-  cat("Stadard Deviation. : ", sd(com_demo2[,names_demo2[i]]),"\n")
+  cat("Standard Deviation. : ", sd(com_demo2[,names_demo2[i]]),"\n")
   cat("Range. : ", max(com_demo2[,names_demo2[i]])-min(com_demo2[,names_demo2[i]])," \n")
   cat("IQR. : ", IQR(com_demo2[,names_demo2[i]]),"\n")
   cat("\n")
@@ -181,10 +175,6 @@ for(i in 1:length(names_demo2))
   k1 = com_demo2[,names_demo2[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of demograhic percentage of "
                                         ,names_demo2[i]), col = "#5679DF", xlab = names_demo2[i])
-  xfit = seq(from = 0, to = 100,length=100) 
-  yfit = dnorm(xfit,mean=mean(k1),sd=sd(k1)) 
-  yfit  =  yfit*diff(k2$mids[1:2])*length(k1) 
-  lines(xfit, yfit, col="red", lwd=2)
   dev.off()
 }
 
@@ -224,22 +214,25 @@ sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("C. Summary Statistics Of Repayment rate on FAFSA depending in 3,5,7 year\n\n")
 
 cat("summary statistics of Three year repayment rate for completers\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(yr3), "\n")
-cat("Stadard Deviation. : ", sd(yr3),"\n")
+cat("Standard Deviation. : ", sd(yr3),"\n")
 cat("Range. : ", max(yr3)-min(yr3)," \n")
 cat("IQR. : ", IQR(yr3),"\n")
 cat("\n")
 
 cat("summary statistics of Five year repayment rate for completers\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(yr5), "\n")
-cat("Stadard Deviation. : ", sd(yr5),"\n")
+cat("Standard Deviation. : ", sd(yr5),"\n")
 cat("Range. : ", max(yr5)-min(yr5)," \n")
 cat("IQR. : ", IQR(yr5),"\n")
 cat("\n")
 
 cat("summary statistics of Seven year repayment rate for completers\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(yr7), "\n")
-cat("Stadard Deviation. : ", sd(yr7),"\n")
+cat("Standard Deviation. : ", sd(yr7),"\n")
 cat("Range. : ", max(yr3)-min(yr7)," \n")
 cat("IQR. : ", IQR(yr7),"\n")
 cat("\n")
@@ -290,22 +283,25 @@ sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("D. Summary Statistics Of Median Earning after 6,8,10 year\n\n")
 
 cat("summary statistics of Median Earning after 6 year\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(m6), "\n")
-cat("Stadard Deviation. : ", sd(m6),"\n")
+cat("Standard Deviation. : ", sd(m6),"\n")
 cat("Range. : ", max(m6)-min(m6)," \n")
 cat("IQR. : ", IQR(m6),"\n")
 cat("\n")
 
 cat("summary statistics of Median Earning after 8 year\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(m8), "\n")
-cat("Stadard Deviation. : ", sd(m8),"\n")
+cat("Standard Deviation. : ", sd(m8),"\n")
 cat("Range. : ", max(m8)-min(m8)," \n")
 cat("IQR. : ", IQR(m8),"\n")
 cat("\n")
 
 cat("summary statistics of Median Earning after 10 year\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(m10), "\n")
-cat("Stadard Deviation. : ", sd(m10),"\n")
+cat("Standard Deviation. : ", sd(m10),"\n")
 cat("Range. : ", max(m10)-min(m10)," \n")
 cat("IQR. : ", IQR(m10),"\n")
 cat("\n")
@@ -317,30 +313,18 @@ png(filename = "../../images/histogram of Median Earning after 6 year(log transf
 md1_log = log(m6)
 md1 = hist(md1_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 6 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
-md1_xfit = seq(from = 9, to = 12,length=100) 
-md1_yfit = dnorm(md1_xfit,mean=mean(md1_log),sd=sd(md1_log)) 
-md1_yfit  =  md1_yfit*diff(md1$mids[1:2])*length(md1_log) 
-lines(md1_xfit, md1_yfit, col="red", lwd=2)
 dev.off()
 
 png(filename = "../../images/histogram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
 md2_log = log(m8)
 md2 = hist(md2_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
-md2_xfit = seq(from = 9, to = 12,length=100) 
-md2_yfit = dnorm(md2_xfit,mean=mean(md2_log),sd=sd(md2_log)) 
-md2_yfit  =  md2_yfit*diff(md2$mids[1:2])*length(md2_log) 
-lines(md2_xfit, md2_yfit, col="red", lwd=2)
 dev.off()
 
 png(filename = "../../images/histogram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
 md3_log = log(m10)
 md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 10 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
-md3_xfit = seq(from = 9, to = 12,length=100) 
-md3_yfit = dnorm(md3_xfit,mean=mean(md3_log),sd=sd(md3_log)) 
-md3_yfit  =  md3_yfit*diff(md3$mids[1:2])*length(md3_log) 
-lines(md3_xfit, md3_yfit, col="red", lwd=2)
 dev.off()
 
 
@@ -352,15 +336,16 @@ dev.off()
 #in terms of completion rate
 sum(as.numeric(is.na(com_demo$ADM_RATE))) #233
 ad = com_demo[com_demo$ADM_RATE!=0,]
-ad = ad[!is.na(re$ADM_RATE), ]
+ad = ad[!is.na(ad$ADM_RATE), ]
 
 #Summary Statistics of Admission rate#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("E. Summary Statistics Of Admission rate\n\n")
-cat(summary(ad), "\n")
-cat("Stadard Deviation. : ", sd(ad),"\n")
-cat("Range. : ", max(ad)-min(ad)," \n")
-cat("IQR. : ", IQR(ad),"\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
+cat(summary(ad$ADM_RATE), "\n")
+cat("Standard Deviation. : ", sd(ad$ADM_RATE),"\n")
+cat("Range. : ", max(ad$ADM_RATE)-min(ad$ADM_RATE)," \n")
+cat("IQR. : ", IQR(ad$ADM_RATE),"\n")
 cat("\n")
 cat("\n\n")
 sink()
@@ -385,8 +370,9 @@ re = re[!is.na(re$RET_FT4), ]
 #Summary Statistics of Retention Rate#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("F. Summary Statistics Of Retention rate\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(re$RET_FT4), "\n")
-cat("Stadard Deviation. : ", sd(re$RET_FT4),"\n")
+cat("Standard Deviation. : ", sd(re$RET_FT4),"\n")
 cat("Range. : ", max(re$RET_FT4)-min(re$RET_FT4)," \n")
 cat("IQR. : ", IQR(re$RET_FT4),"\n")
 cat("\n")
@@ -422,8 +408,9 @@ cost = cost[cost$cost!=0,]
 #Summary Statistics of cost of attendance#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("G. Summary Statistics Of Cost of attendance rate\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(cost$cost), "\n")
-cat("Stadard Deviation. : ", sd(cost$cost),"\n")
+cat("Standard Deviation. : ", sd(cost$cost),"\n")
 cat("Range. : ", max(cost$cost)-min(cost$cost)," \n")
 cat("IQR. : ", IQR(cost$cost),"\n")
 cat("\n")
@@ -452,8 +439,9 @@ debt = debt[debt$DEBT_MDN!=0,]
 #Summary Statistics of Median Debt#
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("H. Summary Statistics Of Median Debt\n\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
 cat(summary(debt$DEBT_MDN), "\n")
-cat("Stadard Deviation. : ", sd(debt$DEBT_MDN),"\n")
+cat("Standard Deviation. : ", sd(debt$DEBT_MDN),"\n")
 cat("Range. : ", max(debt$DEBT_MDN)-min(debt$DEBT_MDN)," \n")
 cat("IQR. : ", IQR(debt$DEBT_MDN),"\n")
 cat("\n")
@@ -480,7 +468,8 @@ pell = com_demo
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("I. Summary Statistics Of Pell Grant rate\n\n")
 cat(summary(pell$PCTPELL), "\n")
-cat("Stadard Deviation. : ", sd(pell$PCTPELL),"\n")
+cat("Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. \n")
+cat("Standard Deviation. : ", sd(pell$PCTPELL),"\n")
 cat("Range. : ", max(pell$PCTPELL)-min(pell$PCTPELL)," \n")
 cat("IQR. : ", IQR(pell$PCTPELL),"\n")
 cat("\n")
@@ -510,7 +499,7 @@ sat = sat[sat$SAT_AVG!=0,]
 sink(file = "../../data/eda-output.txt", append=TRUE)
 cat("J. Summary Statistics Of Average Sat score\n\n")
 cat(summary(sat$SAT_AVG), "\n")
-cat("Stadard Deviation. : ", sd(sat$SAT_AVG),"\n")
+cat("Standard Deviation. : ", sd(sat$SAT_AVG),"\n")
 cat("Range. : ", max(sat$SAT_AVG)-min(sat$SAT_AVG)," \n")
 cat("IQR. : ", IQR(sat$SAT_AVG),"\n")
 cat("\n")

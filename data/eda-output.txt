@@ -4,31 +4,39 @@ A. Summary Statistics Of Completion Rate by demographics
 
 summary statistics of C150_4_WHITE 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.0357 0.4402 0.5699 0.5729 0.7 1 
-Stadard Deviation. :  0.1840151 
+Standard Deviation. :  0.1840151 
 Range. :  0.9643  
 IQR. :  0.25985 
 
+
 summary statistics of C150_4_BLACK 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.0077 0.2727 0.4224 0.4499 0.5954 1 
-Stadard Deviation. :  0.2244877 
+Standard Deviation. :  0.2244877 
 Range. :  0.9923  
 IQR. :  0.32275 
 
+
 summary statistics of C150_4_HISP 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.0105 0.3636 0.5 0.5193 0.6667 1 
-Stadard Deviation. :  0.2096337 
+Standard Deviation. :  0.2096337 
 Range. :  0.9895  
 IQR. :  0.3031 
 
+
 summary statistics of C150_4_ASIAN 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.0526 0.4286 0.5953 0.5995 0.7692 1 
-Stadard Deviation. :  0.231571 
+Standard Deviation. :  0.231571 
 Range. :  0.9474  
 IQR. :  0.3406 
+
 
 
 
@@ -36,29 +44,33 @@ B. Summary Statistics Of demographic percentage
 
 summary statistics of UGDS_WHITE 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 4e-04 0.3768 0.598 0.5461 0.7399 0.9714 
-Stadard Deviation. :  0.2398437 
+Standard Deviation. :  0.2398437 
 Range. :  0.971  
 IQR. :  0.363125 
 
 summary statistics of UGDS_BLACK 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 3e-04 0.0433 0.09035 0.1643 0.2056 0.9885 
-Stadard Deviation. :  0.1919385 
+Standard Deviation. :  0.1919385 
 Range. :  0.9882  
 IQR. :  0.16225 
 
 summary statistics of UGDS_HISP 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 7e-04 0.03542 0.06755 0.1154 0.135 0.9981 
-Stadard Deviation. :  0.1381707 
+Standard Deviation. :  0.1381707 
 Range. :  0.9974  
 IQR. :  0.09955 
 
 summary statistics of UGDS_ASIAN 
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 2e-04 0.0096 0.0197 0.04054 0.0439 0.6387 
-Stadard Deviation. :  0.05930971 
+Standard Deviation. :  0.05930971 
 Range. :  0.6385  
 IQR. :  0.0343 
 
@@ -68,22 +80,25 @@ C. Summary Statistics Of Repayment rate on FAFSA depending in 3,5,7 year
 
 summary statistics of Three year repayment rate for completers
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.2195 0.6611 0.8566 0.789 0.9281 0.9914 
-Stadard Deviation. :  0.1696337 
+Standard Deviation. :  0.1696337 
 Range. :  0.7718899  
 IQR. :  0.2670361 
 
 summary statistics of Five year repayment rate for completers
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.2323 0.7117 0.858 0.8017 0.9285 0.992 
-Stadard Deviation. :  0.15881 
+Standard Deviation. :  0.15881 
 Range. :  0.7596391  
 IQR. :  0.216789 
 
 summary statistics of Seven year repayment rate for completers
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.2222 0.769 0.8832 0.8419 0.9361 0.9909 
-Stadard Deviation. :  0.1233068 
+Standard Deviation. :  0.1233068 
 Range. :  0.7691799  
 IQR. :  0.1671085 
 
@@ -93,22 +108,25 @@ D. Summary Statistics Of Median Earning after 6,8,10 year
 
 summary statistics of Median Earning after 6 year
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 8400 26000 30200 31470 35100 115200 
-Stadard Deviation. :  9741.214 
+Standard Deviation. :  9741.214 
 Range. :  106800  
 IQR. :  9100 
 
 summary statistics of Median Earning after 8 year
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 11900 29200 34200 35710 40600 120600 
-Stadard Deviation. :  10679.77 
+Standard Deviation. :  10679.77 
 Range. :  108700  
 IQR. :  11400 
 
 summary statistics of Median Earning after 10 year
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 12000 31800 38800 39180 44600 186500 
-Stadard Deviation. :  11935.87 
+Standard Deviation. :  11935.87 
 Range. :  174500  
 IQR. :  12800 
 
@@ -116,26 +134,29 @@ IQR. :  12800
 
 E. Summary Statistics Of Admission rate
 
-0 0.5555 0.6996 0.6783 0.8238 1 
-Stadard Deviation. :  0.2031373 
-Range. :  1  
-IQR. :  0.268275 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
+0.0509 0.549 0.6915 0.6594 0.7966 1 
+Standard Deviation. :  0.1930087 
+Range. :  0.9491  
+IQR. :  0.24755 
 
 
 
 F. Summary Statistics Of Retention rate
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 0.1818 0.7 0.7793 0.7674 0.8521 1 
+Standard Deviation. :  0.1271232 
 Range. :  0.8182  
-Stadard Deviation. :  0.1271232 
 IQR. :  0.1521 
 
 
 
 G. Summary Statistics Of Cost of attendance rate
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 1158 14740 19580 19920 24520 46350 
-Stadard Deviation. :  7312.08 
+Standard Deviation. :  7312.08 
 Range. :  45193  
 IQR. :  9771 
 
@@ -143,8 +164,9 @@ IQR. :  9771
 
 H. Summary Statistics Of Median Debt
 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
 3500 13190 16680 16600 20000 36930 
-Stadard Deviation. :  5078.248 
+Standard Deviation. :  5078.248 
 Range. :  33434  
 IQR. :  6807 
 
@@ -153,7 +175,8 @@ IQR. :  6807
 I. Summary Statistics Of Pell Grant rate
 
 0.0671 0.2582 0.3611 0.3894 0.4844 0.8919 
-Stadard Deviation. :  0.1756232 
+Min.  1stQu.  Median.  Mean.  3rd Qu.  Max. 
+Standard Deviation. :  0.1756232 
 Range. :  0.8248  
 IQR. :  0.22615 
 
@@ -162,7 +185,7 @@ IQR. :  0.22615
 J. Summary Statistics Of Average Sat score
 
 780 1000 1062 1087 1149 1545 
-Stadard Deviation. :  132.2474 
+Standard Deviation. :  132.2474 
 Range. :  765  
 IQR. :  149.25 
 
@@ -170,7 +193,9 @@ IQR. :  149.25
 
 2. Explanatory Analysis of Categorical Varibles
 
-K. Summary Statistics Of Size of School
+K. Summary Statistics Of Size of School(represented by numbers 6 to 17,from small to large)
+
+frequency table Of Size of School
 
 6 158
 7 35
@@ -184,6 +209,8 @@ K. Summary Statistics Of Size of School
 15 129
 16 123
 17 39
+
+Relative frequency table Of Size of School
 
 6 0.109418282548476
 7 0.0242382271468144
@@ -229,8 +256,8 @@ Relative frequency table Of Type of School
 Anova Analysis of Type of school on completion rate
 
                     Df Sum Sq Mean Sq F value Pr(>F)    
-com_demo$CCSIZSET    1  249.3  249.25   869.6 <2e-16 ***
-Residuals         1442  413.3    0.29                   
+com_demo$CCSIZSET    1   4.17   4.167   135.5 <2e-16 ***
+Residuals         1442  44.34   0.031                   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
