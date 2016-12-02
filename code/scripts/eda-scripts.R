@@ -27,7 +27,7 @@ completion_4 = completion_4[which(completion_4$C150_4_POOLED!=0),]
 #histogram for completion rate of 4 year universities.
 x = completion_4$C150_4_POOLED * 100
 
-png("../../images/histogram of completion rate.png", width=800, height=600)
+png("../../images/histogram-of-completion-rate.png", width=800, height=600)
 h=hist(x, breaks = 20, col = '#5679DF'
        , xlab = "Percentage Rate(percentage)"
        , main = "Completion Rate in 4 year university(undergraduate)"
@@ -92,7 +92,7 @@ sink()
 ##Histogram of completions rate by Demographics(WHITE, BLACK, HISP, ASIAN)
 for(i in 1:length(names_demo))
 {
-  path1 = paste("../../images/histogram-completion-rate",names_demo[i],".png")
+  path1 = paste0("../../images/histogram-completion-rate-",names_demo[i],".png")
   png(filename = path1, width=800, height=600)
   k1 = com_demo[,names_demo[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of completion rate of "
@@ -100,7 +100,7 @@ for(i in 1:length(names_demo))
   dev.off()
 }
 
-png(filename = "../../images/boxplot of completion rate by demographic.png", width=800, height=600)
+png(filename = "../../images/boxplot-of-completion-rate-by-demographic.png", width=800, height=600)
 boxplot(com_demo$C150_4_WHITE*100, com_demo$C150_4_BLACK*100
         , com_demo$C150_4_HISP*100, com_demo$C150_4_ASIAN*100, com_demo$C150_4_POOLED*100
         , main = "Completion rate by demographics", ylab = "completion rate"
@@ -109,25 +109,25 @@ boxplot(com_demo$C150_4_WHITE*100, com_demo$C150_4_BLACK*100
 dev.off()
 
 
-png(filename = "../../images/scatterplot of overall completion rate and completion rate of white.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-overall-completion-rate-and-completion-rate-of-white.png", width=800, height=600)
 plot(com_demo$C150_4_WHITE, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of white"
      , xlab = "Completion rate of white", ylab = "Completion rate")
 dev.off()
 
-png(filename = "../../images/scatterplot of overall completion rate and completion rate of black.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-overall-completion-rate-and-completion-rate-of-black.png", width=800, height=600)
 plot(com_demo$C150_4_BLACK, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of black"
      , xlab = "Completion rate of black ", ylab = "Completion rate")
 dev.off()
 
-png(filename = "../../images/scatterplot of overall completion rate and completion rate of hispanic.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-overall-completion-rate-and-completion-rate-of-hispanic.png", width=800, height=600)
 plot(com_demo$C150_4_HISP, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of hispanic"
      , xlab = "Completion rate of hispanic", ylab = "Completion rate")
 dev.off()
 
-png(filename = "../../images/scatterplot of overall completion rate and completion rate of asian.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-overall-completion-rate-and-completion-rate-of-asian.png", width=800, height=600)
 plot(com_demo$C150_4_ASIAN, com_demo$C150_4_POOLED
      , main = "scatterplot of overall completion rate and completion rate of asian"
      , xlab = "Completion rate of asian", ylab = "Completion rate")
@@ -170,7 +170,7 @@ sink()
 ##Histogram of demographic percentage
 for(i in 1:length(names_demo2))
 {
-  path1 = paste("../../images/histogram-deomgraphic-percentage",names_demo2[i],".png")
+  path1 = paste0("../../images/histogram-deomgraphic-percentage-",names_demo2[i],".png")
   png(filename = path1, width=800, height=600)
   k1 = com_demo2[,names_demo2[i]]*100
   k2 = hist(k1,breaks= 20, main = paste("Histogram of demograhic percentage of "
@@ -179,7 +179,7 @@ for(i in 1:length(names_demo2))
 }
 
 
-png(filename = "../../images/boxplot of demographic percentage.png", width=800, height=600)
+png(filename = "../../images/boxplot-of-demographic-percentage.png", width=800, height=600)
 boxplot(com_demo2$UGDS_WHITE*100, com_demo2$UGDS_BLACK*100
         , com_demo2$UGDS_HISP*100, com_demo2$UGDS_ASIAN*100
         , main = "Demographic percentages", ylab = "demograhic percentage"
@@ -241,15 +241,15 @@ cat("\n\n")
 sink()
 
 
-png(filename = "../../images/histogram of Three year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram-of-three-year-repayment-rate-for-completers.png", width=800, height=600)
 hist(yr3*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Three year repayment rate for completers")
 dev.off()
-png(filename = "../../images/histogram of Five year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram-of-five-year-repayment-rate-for-completers.png", width=800, height=600)
 hist(yr5*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Five year repayment rate for completers")
 dev.off()
-png(filename = "../../images/histogram of Seven year repayment rate for completers.png", width=800, height=600)
+png(filename = "../../images/histogram-of-seven-year-repayment-rate-for-completers.png", width=800, height=600)
 hist(yr7*100, col = "#5679DF", breaks = 20, xlab = "repayment percentage",
      main = "Histogram of Seven year repayment rate for completers")
 dev.off()
@@ -309,19 +309,19 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of Median Earning after 6 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram-of-median-earning-after-6-year(log-transfromed).png", width=800, height=600)
 md1_log = log(m6)
 md1 = hist(md1_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 6 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
 dev.off()
 
-png(filename = "../../images/histogram of Median Earning after 8 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram-of-median-earning-after-8-year(log-transfromed).png", width=800, height=600)
 md2_log = log(m8)
 md2 = hist(md2_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 8 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
 dev.off()
 
-png(filename = "../../images/histogram of Median Earning after 10 year(log transfromed).png", width=800, height=600)
+png(filename = "../../images/histogram-of-median-earning-after-10-year(log-transfromed).png", width=800, height=600)
 md3_log = log(m10)
 md3 = hist(md3_log, col = "#5679DF", breaks = 10, main = "Histogram of Median Earning after 10 year"
            , xlab = "Earning(log transformed)", xlim = c(9,12))
@@ -350,11 +350,11 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of admission rate.png", width=800, height=600)
+png(filename = "../../images/histogram-of-admission-rate.png", width=800, height=600)
 hist(ad$ADM_RATE, col = "#5679DF", breaks = 10, main = "Histogram of Admission rate")
 dev.off()
 
-png(filename = "../../images/scatterplot admission rate and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-admission-rate-and-completion-rate.png", width=800, height=600)
 plot((ad$ADM_RATE), (ad$C150_4_POOLED), main = "scatterplot of Admission rate and Completion rate"
      , xlab = "admission rate", ylab="completion rate")
 dev.off()
@@ -379,11 +379,11 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of retention rate.png", width=800, height=600)
+png(filename = "../../images/histogram-of-retention-rate.png", width=800, height=600)
 hist(re$RET_FT4, col = "#5679DF", breaks = 10, main = "Histogram of retention rate")
 dev.off()
 
-png(filename = "../../images/scatterplot retention rate and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-retention-rate-and-completion-rate.png", width=800, height=600)
 plot((re$RET_FT4), (re$C150_4_POOLED), main = "scatterplot of retention rate and Completion rate"
      , xlab = "retention rate", ylab="completion rate")
 dev.off()
@@ -417,12 +417,12 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of cost of attendance.png", width=800, height=600)
+png(filename = "../../images/histogram-of-cost-of-attendance.png", width=800, height=600)
 hist(cost$cost, col = "#5679DF", breaks = 10
      , main = "Histogram of cost of attendance", xlab = "cost of attendance")
 dev.off()
 
-png(filename = "../../images/scatterplot of cost of attendace and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-cost-of-attendace-and-completion-rate.png", width=800, height=600)
 plot((cost$cost), (cost$C150_4_POOLED), main = "scatterplot of cost of attendace rate and Completion rate"
      , xlab = "cost of attendacne", ylab="completion rate")
 dev.off()
@@ -448,12 +448,12 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of Median Debt.png", width=800, height=600)
+png(filename = "../../images/histogram-of-median-debt.png", width=800, height=600)
 hist(debt$DEBT_MDN, col = "#5679DF", breaks = 20
      , main = "Histogram of Median Debt", xlab = "Median Debt")
 dev.off()
 
-png(filename = "../../images/scatterplot of median debt and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-median-debt-and-completion-rate.png", width=800, height=600)
 plot((debt$DEBT_MDN), (debt$C150_4_POOLED), main = "scatterplot of median debt and completion rate"
      , xlab = "Median Debt", ylab="completion rate")
 dev.off()
@@ -476,12 +476,12 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of Pell Grant rate.png", width=800, height=600)
+png(filename = "../../images/histogram-of-pell-grant-rate.png", width=800, height=600)
 hist(pell$PCTPELL, col = "#5679DF", breaks = 20
      , main = "Histogram of Pell Grant rate", xlab = "Pell Grant rate")
 dev.off()
 
-png(filename = "../../images/scatterplot of Pell Grant rate and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-pell-grant-rate-and-completion-rate.png", width=800, height=600)
 plot((pell$PCTPELL), (pell$C150_4_POOLED), main = "scatterplot of Pell Grant rate and completion rate"
      , xlab = "Pell Grant rate", ylab="completion rate")
 dev.off()
@@ -506,12 +506,12 @@ cat("\n")
 cat("\n\n")
 sink()
 
-png(filename = "../../images/histogram of Average Sat score.png", width=800, height=600)
+png(filename = "../../images/histogram-of-average-sat-score.png", width=800, height=600)
 hist(sat$SAT_AVG, col = "#5679DF", breaks = 20
      , main = "Histogram of Average Sat score", xlab = "Average Sat score")
 dev.off()
 
-png(filename = "../../images/scatterplot of Average Sat score and completion rate.png", width=800, height=600)
+png(filename = "../../images/scatterplot-of-average-sat-score-and-completion-rate.png", width=800, height=600)
 plot(sat$SAT_AVG, (sat$C150_4_POOLED), main = "scatterplot of Average Sat score and completion rate"
      , xlab = "Average Sat score", ylab="completion rate")
 dev.off()
@@ -534,13 +534,13 @@ cat("\n\n")
 sink()
 
 #Creating barcharts of Size of school
-png(filename = "../../images/Barchart of Size of school.png", width=800, height=600)
+png(filename = "../../images/barchart-of-size-of-school.png", width=800, height=600)
 barplot(prop.table(table(com_demo$CCSIZSET)), main = "Barchart of Size of school"
      , xlab = "Size of School", ylab = "relative frequecny", col = "#5679DF")
 dev.off()
 
 #Creating boxplots of Size of school
-png(filename = "../../images/Boxplot of Size of school on completion rate.png", width=800, height=600)
+png(filename = "../../images/boxplot-of-size-of-school-on-completion-rate.png", width=800, height=600)
 boxplot(com_demo$C150_4_POOLED ~ com_demo$CCSIZSET, main = "boxplot of Size of school on completion rate"
         , xlab = "Size of School", ylab = "completion rate", , col = "#5679DF")
 dev.off()
@@ -576,13 +576,13 @@ cat("\n\n")
 sink()
 
 #Creating barcharts of Size of school
-png(filename = "../../images/Barchart of Type of school.png", width=800, height=600)
+png(filename = "../../images/barchart-of-type-of-school.png", width=800, height=600)
 barplot(prop.table(table(com_demo$CONTROL)), main = "Barchart of Type of school"
         , xlab = "1 : public, 2: private(non-profit), 3:private(profit)", ylab = "relative frequecny", col = "#5679DF")
 dev.off()
 
 #Creating boxplots of Size of school
-png(filename = "../../images/Boxplot of Type of school on completion rate.png", width=800, height=600)
+png(filename = "../../images/boxplot-of-type-of-school-on-completion-rate.png", width=800, height=600)
 boxplot(com_demo$C150_4_POOLED ~ com_demo$CONTROL, main = "boxplot of Type of school on completion rate"
         , xlab = "1 : public, 2: private(non-profit), 3:private(profit)", ylab = "completion rate", , col = "#5679DF")
 dev.off()
