@@ -24,7 +24,7 @@ options(formatR.arrow=TRUE,width=90)
 @
 
 \section{Abstract}
-This report for the <<<NGO>>> uses the national College Scorecard data to make recommendations for the best allocation of funds for the benefit of African American and Hispanic students.  This report builds a propreitary model to suggest what the graduation rates of these groups \empf{should} be based on other data from College Scorecard, and compared these results to the actual graduation rates for these demographics, identifying schools that are underperforming in these areas.  We then take a closer look at selected schools from this category to identify trends and specific insitutions whose minority students most need the support of the <<<NGO>>>.
+This report for the NGO uses the national College Scorecard data to make recommendations for the best allocation of funds for the benefit of African American and Hispanic students.  This report builds a propreitary model to suggest what the graduation rates of these groups \textit{should} be based on other data from College Scorecard, and compared these results to the actual graduation rates for these demographics, identifying schools that are underperforming in these areas.  We then take a closer look at selected schools from this category to identify trends and specific insitutions whose minority students most need the support of the NGO.
 
 
 \section{Introduction}
@@ -38,69 +38,24 @@ The original data file spans 20 years and is too large to be practical to includ
 \section{Methodology}
 To conduct the analysis, first the data was loaded from the manageably sized \texttt{data/subset-data.csv} and some exploratory data anaylsis was performed (covered in the next section) on the variables contained. 
 
-Our primary goal with our analysis of the data contained was to create a model that relates the data we have to the graduation rate for the minorities we are looking at: African-Americans and Hispanics. This will allow us to identify instituions that should be graduating minorities at a higher rate then they are— an institution whose students could clearly use more support.
+Our primary goal with our analysis of the data contained was to create a model that relates the data we have to the graduation rate for the minorities we are looking at: African-Americans and Hispanics. This will allow us to identify instituions that should be graduating minorities at a higher rate then they are - an institution whose students could clearly use more support.
 
 To decide on the best model to use to predict the expected graduation rates of these minorities, we built both a normal least-squares model and a ridge regression model using a training set of the previous few years of data, before testing the performance of the models using a testing set comprised of the latest data in the table.  By comparing the Mean-Squared error of the predicited values compared to the test set, we determined which type of regression was better to use. Following is a brief discussion of the two techniques.
 
 In an ordinary linear squares regression (OLS), we assume that the relationship between the predictor variables and the minority graduation rates can be described roughly by the equation $GR = \beta_0+\beta_1(A)+\beta_2(B)+\beta_3(C) + ...$, where $\beta_p$ are random variables determined from the data by a least-squares fit called "coefficients" that scale the values of predictor variables $A, B, C ...$ so that the graduation rate $GR$ is optimally close to the true value. The function \texttt{lm()} determines these variables from the data for us, and this information as well as a summary are located in \texttt{data/ols-black-model.Rdata} and \texttt{data/ols-hisp-model.Rdata}.  
 
-A slight variation on regular least squares regression (which seeks to minimize the residual sum of squres, $RSS = \sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2$), ridge regression (RR) adds a term to the end of the expression called a shrinkage penalty: $\lambda \sum_{j=1}^p \beta_j^2$.  $\lambda$ in this case is called a "tuning parameter" and is ultimately chosen by the model-fitter, ideally as the value that minimizes the variance of the estimates as much as possible while maintaining a threshold of bias. In practice, computing power is used to calculate the estimates for many different values of $\lambda$ at once to allow for easy discovery of the 'ideal' value for each, and this is what we have done.
+A slight variation on regular least squares regression (which seeks to minimize the residual sum of squres, $RSS = \sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2$), ridge regression (RR) adds a term to the end of the expression called a shrinkage penalty: $\lambda \sum_{j=1}^p \beta_j^2$.  $\lambda$ in this case is called a ``tuning parameter'' and is ultimately chosen by the model-fitter, ideally as the value that minimizes the variance of the estimates as much as possible while maintaining a threshold of bias. In practice, computing power is used to calculate the estimates for many different values of $\lambda$ at once to allow for easy discovery of the 'ideal' value for each, and this is what we have done. This shrinkage penalty is a necessarily positive term that increases as $\lambda$ does.  The minimum value the above expression takes therefore must have smaller coefficients $\beta_j$ than simple linear regression, hence "shrinkage".
 
-This shrinkage penalty is a necessarily positive term that increases as $\lambda$ does.  The minimum value the above expression takes therefore must have smaller coefficients $\beta_j$ than simple linear regression, hence "shrinkage".
+After fitting our models, we compared the predicted values for minoritiy graduation rates with the actual values in the table and found the schools which fell short.
 
-\iffalse
+
+\section{Exploratory Data Analysis}
+
+Exploring the data set we have been given was an important first step in this analysis.  Our EDA started with a simple look through the Data Dictionary to learn about the definitions of the over 1700 variables:  what they represent, what kind of data they contain, and how to find them. 
+
+After determining which variables we will use in our modelfitting and analysis, the next stage was to obtain a clearer image s
 
 \section{Results}
 
-Our linear regression analysis produced the results that appear in the following table. The entries in the table and the paragraph thereafter are inline code and will autogenerate if a different \texttt{Advertising.csv} is chosen. \\
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|l|r|r|r|r|}
- & Estimate & Std. Error & t-value & Pr(>ItI) \\ \hline
-intercept & \Sexpr{round(reg_sum[[4]][1], 3)} & \Sexpr{round(reg_sum[[4]][3], 3)} & \Sexpr{round(reg_sum[[4]][5], 3)} & \Sexpr{round(reg_sum[[4]], 3)} \\
-TV ($\beta_1$) & \Sexpr{round(reg_sum[[4]][2], 3)} & \Sexpr{round(reg_sum[[4]][4], 3)} & \Sexpr{round(reg_sum[[4]][6], 3)} & \Sexpr{round(reg_sum[[4]][8], 3)}\\
-\end{tabular}
-\caption{Regression Information}
-\end{table}
-
-This analysis shows that, using this model, each thousand dollars spent on TV advertising for a product increases that product's sales by about $\Sexpr{round((reg_sum[[4]][2])*(1000), 1)}$ units.  It also implies that spending zero dollars on advertising results in sales of around $\Sexpr{round((reg_sum[[4]][1])*(1000), 0)}$ units, which is fairly suspect when one looks at the scatterplot of the dependent and independent variables against one another (The regression line is drawn in teal).
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=160px]{../images/scatterplot-tv-sales.png}
-\label{fig:scatterplot}
-\end{figure}
-
-This shows that in practice, markets with small ad budgets do not have sales as high as the intercept of the linear model would suggest.  In general, this is a shortcoming of linear models:  any curvature to the data at all and the relationship becomes less reliable.  One can gleam some idea of how good a linear fit is at representing a relationship in data by calculating the following statistics about the fit.
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|c|c|}
-Statistic & Value \\ \hline
-RSS & \Sexpr{round(reg_sum[[6]][1], 3)} \\
-$R^2$ & \Sexpr{round(reg_sum[[8]][1], 3)} \\
-$F$-stat & \Sexpr{round(reg_sum[[10]][1], 3)} \\
-\end{tabular}
-\caption{Goodness of Fit Statistics}
-\end{table}
-
-Residual sum of squares, or \emph{RSS}, is a statistic computed using the forumula $RSS = \sum_{i=1}^n (y_i - f(x_i))^2$, where the $y_i$ values are the true value of the sales for a given markey while the $f(x_i)$ values are the expected sales based on the TV ad budget according to our model.  The least-squares fit is the fit that finds $\beta_0$ and $\beta_1$ so as to make the RSS as small as possible. 
-
-The $R^2$ statistic is a measure of how closely the data falls along the regression line.  If all data points were perfectly along this line, $R^2 = 1$.  Instead, we have $R^2 = \Sexpr{round(reg_sum[[8]][1], 3)}$.
-
-The F-statistic displayed above is the ratio 
-
-\begin{equation}
-F = \frac{\mbox{Mean Squared Error of }f(x_i) \mbox{values}}
-               {\mbox{Mean Squared Error of Error terms }{(y_i - f(x_i))}}
-\end{equation}
-and could be used if desired to asses goodness of fit using an F-test.
-
-\section{Conclusions}
-
-Clearly, the linear regression model fits this data well, but certainly not perfectly. An $R^2$ value of $\Sexpr{round(reg_sum[[8]][1], 3)}$ means the line fits the data reasonably well as $\Sexpr{round(reg_sum[[8]][1], 3)} > 0.5$.  This means that for the majority of markets, increasing the TV ad budget for a product by \$1000 will result in an increase in sales of about $\Sexpr{round(reg_sum[[4]][2], 3)}$ units. 
-
-\fi
 
 \end{document}
