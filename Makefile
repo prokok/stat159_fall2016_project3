@@ -54,7 +54,7 @@ h-ols: code/functions/$(hisp_ols) $(scaled_data)
 	cd code/functions; Rscript $(<F)
 
 analysis: code/scripts/$(analysis) $(aux_data) $(ranked-ridge-hispanic) $(ranked-ridge-black)
-	cd code/scripts; Rscript $(analysis) $(aux_data) $(ranked-ridge-black) $(ranked-ridge-hispanic)
+	cd code/scripts; Rscript $(<F)
 
 report: $(report_rnw) $(images) $(rdata)
 	Rscript -e "library(rsweave); render('report.Rnw', 'pdf_document')"
