@@ -1,3 +1,4 @@
+#.libPaths(c("C:/Users/vlfgn/Documents/R/win-library/3.3", "C:/Users/vlfgn/Documents/R/win-library/3.3"))
 library(plyr)
 #setwd("C:/Users/vlfgn/Desktop/Clean/stat159_fall2016_project3/code/scripts")
 #Loading the raw dataset
