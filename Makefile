@@ -33,25 +33,25 @@ all:
 	eda scaling regressions report
 
 eda: code/scripts/$(eda) $(subset_data)
-	cd code/scripts; Rscript $(eda) $(subset_data)
+	cd code/scripts; Rscript $(<F)
 
 scaling: code/scripts/$(pred_scaling) $(subset_data) $(aux_data)
-	cd code/scripts; Rscript $(pred_scaling) $(subset_data) $(aux_data)
+	cd code/scripts; Rscript $(<F)
 
 regressions: 
 	make b-ridge && make b-ols && h-ridge && make h-ols
 
-b-ridge: $(scaled_data) $(black_ridge)
-	cd code/functions; Rscript $(black_ridge) $(scaled_data)
+b-ridge:  code/functions/$(black_ridge) $(scaled_data)
+	cd code/functions; Rscript $(<F)
 
-b-ols: $(scaled_data) $(black_ols)
-	cd code/functions; Rscript $(black_ols) $(scaled_data)
+b-ols: code/functions/$(black_ols) $(scaled_data)
+	cd code/functions; Rscript $(<F)
 
-h-ridge: $(scaled_data) $(hisp_ridge)
-	cd code/functions; Rscript $(hisp_ridge) $(scaled_data)
+h-ridge: code/functions/$(hisp_ridge) $(scaled_data)
+	cd code/functions; Rscript $(<F)
 
-h-ols: $(scaled_data) $(hisp_ols)
-	cd code/functions; Rscript $(hisp_ols) $(scaled_data)
+h-ols: code/functions/$(hisp_ols) $(scaled_data)
+	cd code/functions; Rscript $(<F)
 
 analysis: code/scripts/$(analysis) $(aux_data) $(ranked-ridge-hispanic) $(ranked-ridge-black)
 	cd code/scripts; Rscript $(analysis) $(aux_data) $(ranked-ridge-black) $(ranked-ridge-hispanic)
@@ -62,12 +62,14 @@ report: $(report_rnw) $(images) $(rdata)
 slides: slides/slides.Rmd
 	Rscript -e "library(rmarkdown); render('slides/slides.Rmd', 'html_document')"
 
+#making session.info.txt
 session: 
 	bash session.sh	
 
+#remove the report.pdf, report.Rnw
 clean:
-	clean $(report_pdf)
-	clean $(report_rnw)
+	rm -f $(report_pdf)
+	rm -f $(report_rnw)
 
 
 
