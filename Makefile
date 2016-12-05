@@ -63,7 +63,7 @@ slides: slides/slides.Rmd
 	Rscript -e "library(rmarkdown); render('slides/slides.Rmd', 'html_document')"
 
 session: 
-	cd code/scripts; Rscript $(session)
+	bash session.sh	
 
 clean:
 	clean $(report_pdf)

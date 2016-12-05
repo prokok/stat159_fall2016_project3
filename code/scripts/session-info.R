@@ -1,4 +1,5 @@
 # include all R packages in your project
+library(plyr)
 library(devtools)
 library(knitr)
 library(rmarkdown)
