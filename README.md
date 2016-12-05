@@ -60,18 +60,56 @@ In order to effectively reproduce this project, clone the repository to your loc
 In MakeFile here is a list of '.Phony' targets you can run through MakeFile.
 
 * all
+	```
+		#reproducing the results
+		make all
+	```
 * eda
+	```
+		#generating eda-output.txt and related plots
+		make slides
+	```
 * regressions
+	```
+		#generating regression-analysis and related Rdata.
+		make regressions
+	```
 * scaling
+	```
+		#generating scaled dataset.
+		make slides
+	```
 * b-ridge
 * b-ols
 * h-ridge
 * h-ols
+	```
+		#generating each regression analysis
+		make b-ridge
+		make b-ols
+		make h-ridge
+		make h-ols
+	```
 * analysis
+	```
+		#generating all regression analysis
+		make analysis
+	```
 * slides
+	```
+		#generating slides
+		make slides
+	```
 * session
+	```
+		#generating session info
+		make session
+	```
 * clean
-
+	```
+		#deleting report
+		make clean
+	```
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />All media content (e.g. paper/report, and images) licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 All code licensed under MIT License
