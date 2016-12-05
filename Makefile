@@ -79,7 +79,7 @@ session:
 
 # make the shiny app and run the ui
 shiny: $(shiny)
-	Rscript $(<F)
+	cd shiny; Rscript $(<F)
 
 # remove the report.pdf, report.Rnw
 clean:
