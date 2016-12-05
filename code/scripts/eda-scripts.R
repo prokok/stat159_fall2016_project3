@@ -735,5 +735,25 @@ pairs(C150_4_POOLED
       , main="Scatterplot matrix of all variables")
 dev.off()
 
+png("../../images/scatterplot-matrix-all-black.png", width=2000, height=2000)
+pairs(C150_4_BLACK
+      ~ ADM_RATE+RET_FT4
+      + cost
+      + DEBT_MDN + PCTPELL 
+      + SAT_AVG
+      + MD_EARN_WNE_P6 
+      , data=cor_overall2
+      , main="Scatterplot matrix realted to completion rate of black")
+dev.off()
 
 
+png("../../images/scatterplot-matrix-all-hispanic.png", width=2000, height=2000)
+pairs(C150_4_HISP
+      ~ ADM_RATE+RET_FT4
+      + cost
+      + DEBT_MDN + PCTPELL 
+      + SAT_AVG
+      + MD_EARN_WNE_P6 
+      , data=cor_overall2
+      , main="Scatterplot matrix realted to completion rate of hispanic")
+dev.off()
