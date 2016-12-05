@@ -3,8 +3,6 @@
 dat <- read.csv("../../data/subset-data.csv")[,-1]
 aux_data <- read.csv("../../data/aux-data.csv")[,-1]
 
-# Scaled Test Sets
-pred_black = na.omit(data.frame(dat[,"UNTID", "UGDS_BLACK", "COMPL_RPY_5YR_RT",]))
 
 # Helper function to turn factors into numerics
 make_numeric = function(vector) {
@@ -14,8 +12,6 @@ make_numeric = function(vector) {
 # Making all necessary data numeric based
 dat$COMPL_RPY_3YR_RT = make_numeric(dat$COMPL_RPY_3YR_RT)
 dat$COMPL_RPY_5YR_RT = make_numeric(dat$COMPL_RPY_5YR_RT)
-dat$COMPL_RPY_3YR_RT = make_numeric(dat$COMPL_RPY_3YR_RT)
-dat$COMPL_RPY_7YR_RT = make_numeric(dat$COMPL_RPY_7YR_RT)
 dat$DEBT_MDN = make_numeric(dat$DEBT_MDN)
 dat$MD_EARN_WNE_P10 = make_numeric(dat$MD_EARN_WNE_P10)
 dat$MD_EARN_WNE_P6 = make_numeric(dat$MD_EARN_WNE_P6)
