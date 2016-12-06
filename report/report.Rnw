@@ -5,7 +5,7 @@
 \usepackage{subcaption}
 \usepackage{float}
 \title{Opportunities for Investing in Success for African American and Hispanic College Students}
-\author{Tim McGinley}
+\author{Stacy Chang, JD de Lorimier, Tim McGinley, Philhoon Oh}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 \date{\today}
@@ -34,61 +34,36 @@ options(formatR.arrow=TRUE,width=90)
 @
 
 \section{Abstract}
-This report for the NGO uses the national College Scorecard data to make recommendations for the best allocation of funds for the benefit of African American and Hispanic students.  This report builds a propreitary model to suggest what the graduation rates of these groups \textit{should} be based on other data from College Scorecard, and compared these results to the actual graduation rates for these demographics, identifying schools that are underperforming in these areas.  We then take a closer look at selected schools from this category to identify trends and specific insitutions whose minority students most need the support of the NGO.
+This report for your organization uses the national College Scorecard data to make recommendations for the best allocation of funds for the benefit of African American and Hispanic students.  This report builds a proprietary model to suggest what the graduation rates of these groups \textit{should} be based on other data from College Scorecard, and compared these results to the actual graduation rates for these demographics, identifying schools that are underperforming in these areas.  We then take a closer look at selected schools from this category to identify trends and specific institutions whose minority students most need the support of your organization.
 
 
 \section{Introduction}
 There can be no doubt that, in an increasingly divisive and frightening time for the future of our nation's most vulnerable minorities, ensuring the successful college education of our youth is more important than ever. The mission of your organization to promote the educational achievement of minority students is vital to the continued march towards equality in the United States, and this report is designed to help your organization target its capital investments where they are needed most.  There are over 2,000 four-year institutions in this country serving our nation's youth, and we've done the leg work for you in finding schools at risk for low graduation rates for African American and Hispanic students.
 
 \section{Data}
-The data originally comes from the Research Triangle Insitute, part of the U.S. Department of Education.  This is the data that powers \texttt{http://collegescorecard.ed.gov}, a website to help college-bound students find the best schools for their interests and other preferences.  While this provides a great resource for students, it also has fostered the collection of an incredible amount of data on the over 7,700 places of higher learning in the country, which we can use to answer deeper questions.  Data points are included for types of school, graduation rates, admitance rates, student body demographics, and literally thousands more.  
+The data originally comes from the Research Triangle Institute, part of the U.S. Department of Education.  This is the data that powers \texttt{http://collegescorecard.ed.gov}, a website to help college-bound students find the best schools for their interests and other preferences.  While this provides a great resource for students, it also has fostered the collection of an incredible amount of data on the over 7,700 places of higher learning in the country, which we can use to answer deeper questions.  Data points are included for types of school, graduation rates, admitance rates, student body demographics, and literally thousands more.  
 
 The original data file spans 20 years and is too large to be practical to include with this report, so we've extracted just the last three annual iterations of the \Sexpr{length(new_dat[1,])} variables that had possible relevance to the production of the information contained in this report.  This resulted in the more manageably sized \texttt{data/subset-data.csv} data set, which we have included with this report. 
-
-\section{Methodology}
-To conduct the analysis, first the data was loaded from the manageably sized \texttt{data/subset-data.csv} and some exploratory data anaylsis was performed (covered in the next section) on the variables contained. 
-
-Our primary goal with our analysis of the data contained was to create a model that relates the data we have to the graduation rate for the minorities we are looking at: African-Americans and Hispanics. This will allow us to identify instituions that should be graduating minorities at a higher rate then they are - an institution whose students could clearly use more support.
-
-To decide on the best model to use to predict the expected graduation rates of these minorities, we built both a normal least-squares model and a ridge regression model using a training set of the previous few years of data, before testing the performance of the models using a testing set comprised of the latest data in the table.  By comparing the Mean-Squared error of the predicited values compared to the test set, we determined which type of regression was better to use. Following is a brief discussion of the two techniques.
-
-In an ordinary linear squares regression (OLS), we assume that the relationship between the predictor variables and the minority graduation rates can be described roughly by the equation:
-
-\begin{equation}
-GR = \beta_0+\beta_1(A)+\beta_2(B)+\beta_3(C) + ...
-\end{equation}
-
-Where $\beta_p$ are random variables determined from the data by a least-squares fit called "coefficients" that scale the values of predictor variables $A, B, C ...$ so that the graduation rate $GR$ is optimally close to the true value. The function \texttt{lm()} determines these variables from the data for us, and this information as well as a summary are located in \texttt{data/ols-black-model.Rdata} and \texttt{data/ols-hisp-model.Rdata}.  
-
-A slight variation on regular least squares regression (which seeks to minimize the residual sum of squres, $RSS = \sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2$), ridge regression (RR) adds a term to the end of the expression called a shrinkage penalty: $\lambda \sum_{j=1}^p \beta_j^2$.  $\lambda$ in this case is called a ``tuning parameter'' and is ultimately chosen by the model-fitter, ideally as the value that minimizes the variance of the estimates as much as possible while maintaining a threshold of bias. This leads to the final expression that is minimized in ridge regressions,
-
-\begin{equation}
-\sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2 + \lambda \sum_{j=1}^p \beta_j^2
-\end{equation}
-
-In practice, computing power is used to calculate the estimates for many different values of $\lambda$ at once to allow for easy discovery of the 'ideal' value for each, and this is what we have done. This shrinkage penalty is a necessarily positive term that increases as $\lambda$ does.  The minimum value the above expression takes therefore must have smaller coefficients $\beta_j$ than simple linear regression, hence ``shrinkage''.
-
-After fitting our models, we compared the predicted values for minoritiy graduation rates with the actual values in the table and found the schools which fell short.
 
 
 \section{Exploratory Data Analysis}
 
 Exploring the data set we have been given was an important first step in this analysis.  Our EDA started with a simple look through the Data Dictionary to learn about the definitions of the over 1700 variables:  what they represent, what kind of data they contain, and how to find them. 
 
-After determining which variables we will use in our modelfitting and analysis, the next stage was to obtain a clearer image of the data we will be working with. First, let's take a broad look a the distribution of minority students at four-year institutions nationally.  The following figure shows the wide disparity of demographic makeup in four-year schools around the country---while non-white students generally comprise a small percentage of the student body at most schools, there are many extreme outliers.
+After determining which variables we will use in our model-fitting and analysis, the next stage was to obtain a clearer image of the data we will be working with. First, let's take a broad look a the distribution of minority students at four-year institutions nationally.  The following figure shows the wide disparity of demographic makeup in four-year schools around the country---while non-white students generally comprise a small percentage of the student body at most schools, there are many extreme outliers.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=280px]{../images/boxplot-of-demographic-percentage.png}
+\includegraphics[width=320px]{../images/boxplot-of-demographic-percentage.png}
 \caption{School-by-School Demographic Makeup}
 \label{fig:barchart}
 \end{figure}
 
-Ultimately, the objective of this initiative concerns the graduation rates of minority students, so it seems reasonable to look at the overall rates for these groups in four-year instituions nationwide.
+Ultimately, the objective of this initiative concerns the graduation rates of minority students, so it seems reasonable to look at the overall rates for these groups in four-year institutions nationwide.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=280px]{../images/boxplot-of-completion-rate-by-demographic.png}
+\includegraphics[width=320px]{../images/boxplot-of-completion-rate-by-demographic.png}
 \caption{Overall Six-year Completion Percentage By Race}
 \label{fig:barchart}
 \end{figure}
@@ -104,7 +79,7 @@ Looking more closely at completion rates for minorities, we see that the overall
 \label{fig:scatterplot}
 \end{figure}
 
-...but decidedly less closely for African-American and Hispanic Students
+...but decidedly less closely for African-American and Hispanic Students:
 
 \begin{figure}[H]
   \centering
@@ -121,7 +96,7 @@ Looking more closely at completion rates for minorities, we see that the overall
   \caption{Minority Completion Rate vs White Completion Rate}
 \end{figure}  
 
-To sum up the relationship between the African-American and Hispanic individual graduation rates and other important selected variables, the following scatterplot matrix was created.
+To sum up the relationship between the African-American and Hispanic individual graduation rates and other important selected variables, the following scatterplot matrix was created
 
 \begin{figure}[H]
 \centering
@@ -130,19 +105,47 @@ To sum up the relationship between the African-American and Hispanic individual 
 \label{fig:scatterplotmatrix}
 \end{figure}
 
-For more information on the data we used, extensive summary statistics and a correllation matrix of all variables used in this project can be found in the \texttt{data/eda-output.txt} file.  Many informative histograms and scatterplots that didn't make the cut into this report can also be found in \texttt{images/}.
+For more information on the data we used, extensive summary statistics and a correlation matrix of all variables used in this project can be found in the \texttt{data/eda-output.txt} file.  Many informative histograms and scatterplots that didn't make the cut into this report can also be found in \texttt{images/}.
+
+\section{Methodology}
+To conduct the analysis, first the data was loaded from the manageably sized \texttt{data/subset-data.csv} and some exploratory data analysis was performed (covered in the next section) on the variables contained. 
+
+Our primary goal with our analysis of the data contained was to create a model that relates the data we have to the graduation rate for the minorities we are looking at: African-Americans and Hispanics. This will allow us to identify institutions that should be graduating minorities at a higher rate then they are - an institution whose students could clearly use more support.
+
+To decide on the best model to use to predict the expected graduation rates of these minorities, we built both a normal least-squares model and a ridge regression model using a training set of the previous few years of data, before testing the performance of the models using a testing set comprised of the latest data in the table.  By comparing the Mean-Squared error of the predicted values compared to the test set, we determined which type of regression was better to use. Following is a brief discussion of the two techniques.
+
+In an ordinary linear squares regression (OLS), we assume that the relationship between the predictor variables and the minority graduation rates can be described roughly by the equation:
+
+\begin{equation}
+GR = \beta_0+\beta_1(A)+\beta_2(B)+\beta_3(C) + ...
+\end{equation}
+
+Where $\beta_p$ are random variables determined from the data by a least-squares fit called "coefficients" that scale the values of predictor variables $A, B, C ...$ so that the graduation rate $GR$ is optimally close to the true value. The function \texttt{lm()} determines these variables from the data for us, and this information as well as a summary are located in \texttt{data/ols-black-model.Rdata} and \texttt{data/ols-hisp-model.Rdata}.  
+
+A slight variation on regular least squares regression (which seeks to minimize the residual sum of squares, $RSS = \sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2$), ridge regression (RR) adds a term to the end of the expression called a shrinkage penalty: $\lambda \sum_{j=1}^p \beta_j^2$.  $\lambda$ in this case is called a ``tuning parameter'' and is ultimately chosen by the model-fitter, ideally as the value that minimizes the variance of the estimates as much as possible while maintaining a threshold of bias. This leads to the final expression that is minimized in ridge regressions,
+
+\begin{equation}
+\sum_{i=1}^n (y_i - \sum_{j=0}^p \beta_j(x_{ij}))^2 + \lambda \sum_{j=1}^p \beta_j^2
+\end{equation}
+
+In practice, computing power is used to calculate the estimates for many different values of $\lambda$ at once to allow for easy discovery of the 'ideal' value for each, and this is what we have done. This shrinkage penalty is a necessarily positive term that increases as $\lambda$ does.  The minimum value the above expression takes therefore must have smaller coefficients $\beta_j$ than simple linear regression, hence ``shrinkage''.
+
+After fitting our models, we compared the predicted values for minority graduation rates with the actual values in the table and found the schools which fell short.
+
+
+
 
 \section{Analysis}
 
 Using the data from the previous two years of this report, '12 and '13, we built both an OLS model and a Ridge Regression model to predict the African-American and Hispanic graduation rates for each school based on \Sexpr{length(predictors) - 3} other related variables in the dataset. These variables are listed below, as well as a brief description.
 
 <<variables, echo=false, include=false, results=tex>>=
-variable_info <- data.frame(colnames(predictors[,4:(length(predictors)-2)]), c("Black Student Body Percentage", "Hispanic Student Body Percentage", "5-year Overall Completition Rate", "Net Price (Public and Private Schools Combined)", "Admission Rate", "4-Year Retention Rate", "Median Post-Graduate Debt", "Percentage of Student Body on Pell Grants", "Median Post-Graduate Earnings", "Total Graduation Rate"))
+variable_info <- data.frame(colnames(predictors[,4:(length(predictors)-2)]), c("Black Student Body Percentage", "Hispanic Student Body Percentage", "5-year Overall Completion Rate", "Net Price (Public and Private Schools Combined)", "Admission Rate", "4-Year Retention Rate", "Median Post-Graduate Debt", "Percentage of Student Body on Pell Grants", "Median Post-Graduate Earnings", "Total Graduation Rate"))
 colnames(variable_info) <- c("Variable Name", "Description")
 print(xtable(variable_info, caption = "Variables Used in Model", align = "clr"),include.rownames = FALSE, table.placement = "H", center = "centering", caption.placement = "top")
 @
 \textit{Note: Only the corresponding demographic percentage was included for each model---i.e. our Hispanic model wasn't based on UGDS\_Black at all}
-\\
+
 
 After we have built and trained our two models using the data from previous years, we tested them with the current year's data to determine which model produced the lowest error, measured via the Mean-Squared Error.
 
@@ -159,24 +162,25 @@ After we have built and trained our two models using the data from previous year
 \caption{MSEs by Race and Method}
 \end{table}
   
-For both minoritiy groups we looked at, Ridge regression far outperformed OLS, so we used our ridge model throughout. 
+For both minority groups we looked at, Ridge regression far outperformed OLS, so we used our ridge model throughout. 
 
 Our goal is to uncover the schools that this model predicts would have a higher graduation rate for minority students than it does, but first, we needed to make some logical restrictions on the data.  First, a school with a vanishingly small percentage of undergraduates that fall into one or the other category not only leads to small sample size issues, but also doesn't seem like the type of institution worth investing capital in anyway. So we set a logical cutoff, requiring at least of 3\% of the student body to fall into the racial category of interest.  Secondly, we only included schools with at least 500 students in the entire student body.  Finally, we restricted this search to schools classified as either ``Highly Selective" or ``Selective" by the US Department of Education---an easy catchall for schools holding good academic credentials.
 
-This results in the following list of the 20 schools whose African-American graduation rates fall the farthest short of what our model predicted, and that meet our criteria for underperforming schools in regards to African-American graduation rates:
+\pagebreak This results in the following list of the 35 schools whose African-American graduation rates fall the farthest short of what our model predicted, and that meet our criteria for underperforming schools in regards to African-American graduation rates:
 
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_black[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Black Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_black[,c(1,4)], 35), caption="Top 20 Most Underperforming Qualified Schools for Black Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
+\pagebreak
 And the same for Hispanic students:
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_hisp[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_hisp[,c(1,4)], 35), caption="Top 20 Most Underperforming Qualified Schools for Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
@@ -184,7 +188,7 @@ print(xtable(head(over3_hisp[,c(1,4)], 20), caption="Top 20 Most Underperforming
 
 The tables in the section above show the schools that our model has shown do not graduate African-American and Hispanic students at the rates they should---that meet our inclusion criteria of school size and demographic proportions.  This information alone does not fully answer the ultimate question, though, of which of these schools are the best places to invest scholarship money. Now that we have a manageable selection of schools to choose from, let's dive a little deeper and look at which schools make appealing targets for resources. 
 
-The above lists are the top 20 most underperforming schools for each demographic, but far more schools than that do not meet expectations (our model found \Sexpr{length(over3_black[,1])} and \Sexpr{length(over3_hisp[,1])} for African-Americans and Hispanics, respectively).  Extending this list to the 100 most underpeforming schools, the following five schools from each category have the lowest cost of attendance---in other words, schools where scarce scholarship dollars will go the farthest, making them better investments. Each dollar invested here will go farther towards improving graduation rates by simple result of a lower overall cost.
+The above lists are the top 20 most underperforming schools for each demographic, but far more schools than that do not meet expectations (our model found \Sexpr{length(over3_black[,1])} and \Sexpr{length(over3_hisp[,1])} for African-Americans and Hispanics, respectively.  The full list can be found in texttt{data/results-tables.Rdata}).  Extending this list to the 100 most underpeforming schools, the following five schools from each category have the lowest cost of attendance---in other words, schools where scarce scholarship dollars will go the farthest, making them better investments. Each dollar invested here will go farther towards improving graduation rates by simple result of a lower overall cost.
 
 <<cheap black, include=FALSE, echo=FALSE, results=tex>>=
 black_100  <- head(over3_black, 100)
@@ -201,7 +205,7 @@ print(xtable(head(hisp_cheap[,c(1,7)], 5), caption="Five Cheapest Underperformin
 @
 As you might imagine, there is some overlap between the two lists.
 
-Next, we looked at which of these schools which boast the highest median income 8 years out of school.  If the goal of investing money into minority education is to improve the economic status of oppressed peoples, these schools do the best job of that, of the schools we've identified as underperfoming.  
+Next, we looked at which of these schools which boast the highest median income 8 years out of school.  If the goal of investing money into minority education is to improve the economic status of oppressed peoples, these schools do the best job of that, of the schools we've identified as underperforming.  
 
 <<income black, include=FALSE, echo=FALSE, results=tex>>=
 black_income <- black_100[order(black_100$`Median 8-Year Income`, decreasing = TRUE),]
@@ -215,7 +219,7 @@ hisp_income <- hisp_100[order(hisp_100$`Median 8-Year Income`, decreasing = TRUE
 print(xtable(head(hisp_income[,c(1,9)], 5), caption="Five Best Underperforming Schools By Eventual Income For Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 
-Lastly, we looked at which of these schools' alumni have the lowest median debt after graduation.  In a world with exponentially increasing student debt levels, that can burden students and hamper success for decades after graduation.  These underperfoming schools do the best job at leaving their alumni with manageable amounts of debt, and as such are notable candidates for recieving scholarship money. The top schools in this category are there mostly because of their generous financial aid packages, so we've extended the list to 10 to display some schools that have low median debt due to a combination of price and financial aid factors.
+Lastly, we looked at which of these schools' alumni have the lowest median debt after graduation.  In a world with exponentially increasing student debt levels, that can burden students and hamper success for decades after graduation.  These underperforming schools do the best job at leaving their alumni with manageable amounts of debt, and as such are notable candidates for receiving scholarship money. The top schools in this category are there mostly because of their generous financial aid packages, so we've extended the list to 10 to display some schools that have low median debt due to a combination of price and financial aid factors.
 
 
 <<income black, include=FALSE, echo=FALSE, results=tex>>=
@@ -228,5 +232,13 @@ hisp_debt <- hisp_100[order(hisp_100$`Median Post-Grad Debt`),]
 print(xtable(head(hisp_debt[,c(1,8)], 10), caption="Five Best Underperforming Schools By Graduating Debt For Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 Investing in the students of these schools will result more often in young professionals less burdened by heavy student loan debt.
+
+\section{Conclusion}
+
+The lists above represent our best suggestions for schools whose minority students most need---and will be most helped by---financial assistance by your organization.  These are schools that our model suggests should be graduating African-American and Hispanic students at higher rates than they are, and whether your organization decides the best course of action is increased scholarships, minority-specific programs, or other forms of intervention, these are the schools whose students could use the most assistance.
+
+One interesting thing to note is that schools that traditionally are well known for high indicators of success for all students---well known schools that have high expected future incomes--- often do not do a good job of graduating their minority students.  Schools like Duke University, Georgetown University, and Yale University appear on our lists as schools identified as underperforming our model. Looking more closely at some schools like Carnegie Mellon  and Boston College, we find that black students graduate at a rate more than ten percentage points lower than the overall graduation rate.  This goes to show that doing research on the institution is often valuable before money is invested.  
+
+In this day and age of increased racial divisiveness and worry in our most vulnerable communities, the work your organization does to benefit the next generation of educated minority citizens is more important than ever.  We hope this report has helped narrow the scope of your search to find the schools whose students most need your help to achieve their dreams. 
 
 \end{document}
