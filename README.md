@@ -1,4 +1,4 @@
-# Stat 159 Fall 2016 Porject 3
+# Stat 159 Fall 2016 Project 3
 
 ###Authors: Stacy Chang, Phil Hoon Oh, James de Lorimier, Tim Mcginley
 
