@@ -67,7 +67,7 @@ analysis: code/scripts/$(analysis) $(aux_data) $(ranked-ridge-hispanic) $(ranked
 	
 # make report.pdf from report.Rnw
 report: $(report_rnw) $(images) $(rdata)
-	Rscript -e "library(rsweave); render('report.Rnw', 'pdf_document')"
+	Rscript -e "library(knitr);knit2pdf('$(report_rnw)', output = '$(report_pdf)')"
 
 # make slides.html
 slides: slides/slides.Rmd
@@ -84,7 +84,6 @@ shiny: $(shiny)
 # remove the report.pdf, report.Rnw
 clean:
 	rm -f $(report_pdf)
-	rm -f $(report_rnw)
 
 
 
