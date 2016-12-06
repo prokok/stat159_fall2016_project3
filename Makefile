@@ -67,7 +67,7 @@ analysis: code/scripts/$(analysis) $(aux_data) $(ranked-ridge-hispanic) $(ranked
 	
 # make report.pdf from report.Rnw
 report: $(report_rnw) $(images) $(rdata)
-	Rscript -e "library(knitr);knit2pdf('$(report_rnw)', output = '$(report_pdf)')"
+	Rscript -e "library(knitr);knit2pdf('$(report_rnw)', output = 'report/report.tex')"
 
 # make slides.html
 slides: slides/slides.Rmd
