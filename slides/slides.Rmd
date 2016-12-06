@@ -32,7 +32,7 @@ output:
 
 - To accomplish this, we look to the College Scorecard data
 
-- Data provided on every insitution in America by the US Department of Education
+- Data provided on every institution in America by the US Department of Education
 
 - Attempt to find schools that are not graduating as many minority students as they should be
 
@@ -45,7 +45,7 @@ output:
 
 - Original raw data file has over 1700 categories of information for each school (variables)...
 
-- ... and over 7,700 individual schools (rows), resulting in an unmangeably gigantic dataset
+- ... and over 7,700 individual schools (rows), resulting in an unmanageably gigantic dataset
 
 - we extracted just the 27 variables we used to produce the information in this report
 
@@ -89,7 +89,7 @@ load("../data/ols-hisp-model.RData")
 
 - This creates ranking of schools most underperforming expectations
 
-- Restricted results to only "selective" or "highly selective" four-year instituions
+- Restricted results to only "selective" or "highly selective" four-year institutions
 
 ## Results | Top 8 Most Underperforming Schools for Black Students{.flexbox .vcenter}
 ```{r xtable1, echo=FALSE, warning=FALSE, results="asis"}
@@ -130,7 +130,7 @@ print(tab2, type = "html", include.rownames = FALSE)
 
 - Meant to highlight certain schools where funding will be stretched further, or the students assisted better positioned upon graduation
 
-## Results | Underperfoming Schools with Lowest Cost of Attendance (Black){.flexbox .vcenter}
+## Results | Underperforming Schools with Lowest Cost of Attendance (Black){.flexbox .vcenter}
 
 ```{r xtable3, echo=FALSE, warning=FALSE, results="asis"}
 colnames(over3_black) <- c("School Name", "Admission Rate", "Overall Grad Rate", "Black Grad Rate", "Black Student Body Proportion", "Total School Size", "Net Cost", "Median Post-Grad Debt", "Median 8-Year Income")
@@ -146,7 +146,7 @@ print(tab3, type = "html", include.rownames = FALSE)
 <br />
 <br />
 
-## Results | Underperfoming Schools with Lowest Cost of Attendance (Hispanic) {.flexbox .vcenter}
+## Results | Underperforming Schools with Lowest Cost of Attendance (Hispanic) {.flexbox .vcenter}
 
 ```{r xtable4, echo=FALSE, warning=FALSE, results="asis"}
 hisp_100  <- head(over3_hisp, 100)
@@ -160,7 +160,7 @@ print(tab4, type = "html", include.rownames = FALSE)
 <br />
 <br />
 
-## Results | Underperfoming Schools with Lowest Median Debt (Black) {.flexbox .vcenter}
+## Results | Underperforming Schools with Lowest Median Debt (Black) {.flexbox .vcenter}
 
 ```{r xtable5, echo=FALSE, warning=FALSE, results="asis"}
 black_debt <- black_100[order(black_100$`Median Post-Grad Debt`),]
@@ -174,7 +174,7 @@ print(tab5, type = "html", include.rownames = FALSE)
 <br />
 
 
-## Results | Underperfoming Schools with Lowest Median Debt (Hispanic) {.flexbox .vcenter}
+## Results | Underperforming Schools with Lowest Median Debt (Hispanic) {.flexbox .vcenter}
 
 ```{r xtable6, echo=FALSE, warning=FALSE, results="asis"}
 hisp_debt <- hisp_100[order(hisp_100$`Median Post-Grad Debt`),]
@@ -190,7 +190,7 @@ print(tab6, type = "html", include.rownames = FALSE)
 ## Conclusion
 
 
-- The Previous lists of schools represent insitutions not doing as well as expected when it comes to graduating their minority students
+- The Previous lists of schools represent institutions not doing as well as expected when it comes to graduating their minority students
 
 - Any one of which would be a good place to invest money, as their students clearly need support
 
