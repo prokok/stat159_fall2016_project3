@@ -171,7 +171,7 @@ Our goal is to uncover the schools that this model predicts would have a higher 
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_black[,c(1,4)], 35), caption="Top 20 Most Underperforming Qualified Schools for Black Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_black[,c(1,4)], 35), caption="Top 35 Most Underperforming Qualified Schools for Black Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
@@ -180,7 +180,7 @@ And the same for Hispanic students:
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_hisp[,c(1,4)], 35), caption="Top 20 Most Underperforming Qualified Schools for Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_hisp[,c(1,4)], 35), caption="Top 35 Most Underperforming Qualified Schools for Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
