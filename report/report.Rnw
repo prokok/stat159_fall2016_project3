@@ -28,6 +28,7 @@ load("../data/ols-black-model.RData")
 load("../data/ols-hisp-model.RData")
 hisp.ranks <- read.csv("../data/ranked-ridge-hispanic.csv")
 black.ranks <- read.csv("../data/ranked-ridge-black.csv")
+predictors <- read.csv('../data/scaled-predictors.csv')
 
 options(formatR.arrow=TRUE,width=90)
 @
@@ -133,13 +134,23 @@ For more information on the data we used, extensive summary statistics and a cor
 
 \section{Analysis}
 
-After we have built and trained our two models, OLS and Ridge, using the data from previous years, we then tested them with the current year's data to determine which model produced the lowest error, measured via the Mean-Squared Error.
+Using the data from the previous two years of this report, '12 and '13, we built both an OLS model and a Ridge Regression model to predict the African-American and Hispanic graduation rates for each school based on \Sexpr{length(predictors) - 3} other related variables in the dataset. These variables are listed below, as well as a brief description.
+
+<<variables, echo=false, include=false, results=tex>>=
+variable_info <- data.frame(colnames(predictors[,4:(length(predictors)-2)]), c("Black Student Body Percentage", "Hispanic Student Body Percentage", "5-year Overall Completition Rate", "Net Price (Public and Private Schools Combined)", "Admission Rate", "4-Year Retention Rate", "Median Post-Graduate Debt", "Percentage of Student Body on Pell Grants", "Median Post-Graduate Earnings", "Total Graduation Rate"))
+colnames(variable_info) <- c("Variable Name", "Description")
+print(xtable(variable_info, caption = "Variables Used in Model", align = "clr"),include.rownames = FALSE, table.placement = "H", center = "centering", caption.placement = "top")
+@
+\textit{Note: Only the corresponding demographic percentage was included for each model---i.e. our Hispanic model wasn't based on UGDS\_Black at all}
+\\
+
+After we have built and trained our two models using the data from previous years, we tested them with the current year's data to determine which model produced the lowest error, measured via the Mean-Squared Error.
 
 \begin{table}[H]
 \centering
   \begin{tabular}{c c c}
   \hline
-  Group & OLS & Ridge \\
+  Group & OLS MSE & Ridge MSE\\
   \hline
   Black & \Sexpr{round(ols_mse_black, 3)} & \Sexpr{round(ridge_black_mse, 3)} \\
   Hispanic & \Sexpr{round(ols_mse_hisp, 3)} & \Sexpr{round(ridge_mse, 3)} \\
@@ -148,14 +159,16 @@ After we have built and trained our two models, OLS and Ridge, using the data fr
 \caption{MSEs by Race and Method}
 \end{table}
   
-For both minoritiy groups we looked at, Ridge regression far outperformed OLS, so we used our ridge model throughout. Our goal is to uncover the schools that this model predicts would have a higher graduation rate for minority students than it does, but first, we needed to make some logical restrictions on the data.  First, a school with a vanishingly small percentage of undergraduates that fall into one or the other category not only leads to small sample size issues, but also doesn't seem like the type of institution worth investing capital in anyway. So we set a logical cutoff, requiring at least of 3\% of the student body to fall into the racial category of interest.  Secondly, we only included schools with at least 500 students in the entire student body.  Finally, we restricted this search to schools classified as either ``Highly Selective" or ``Selective" by the US Department of Education---an easy catchall for schools holding good academic credentials.
+For both minoritiy groups we looked at, Ridge regression far outperformed OLS, so we used our ridge model throughout. 
+
+Our goal is to uncover the schools that this model predicts would have a higher graduation rate for minority students than it does, but first, we needed to make some logical restrictions on the data.  First, a school with a vanishingly small percentage of undergraduates that fall into one or the other category not only leads to small sample size issues, but also doesn't seem like the type of institution worth investing capital in anyway. So we set a logical cutoff, requiring at least of 3\% of the student body to fall into the racial category of interest.  Secondly, we only included schools with at least 500 students in the entire student body.  Finally, we restricted this search to schools classified as either ``Highly Selective" or ``Selective" by the US Department of Education---an easy catchall for schools holding good academic credentials.
 
 This results in the following list of the 20 schools whose African-American graduation rates fall the farthest short of what our model predicted, and that meet our criteria for underperforming schools in regards to African-American graduation rates:
 
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_black[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Black Students", align = "llc", table.placement="H"), include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_black[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Black Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
@@ -163,7 +176,7 @@ And the same for Hispanic students:
 \begin{center}
 <<xtest, echo=false, results=tex>>=
 library(xtable)
-print(xtable(head(over3_hisp[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Hispanic Students", align = "llc", table.placement="H"), include.rownames = FALSE, caption.placement = 'top', center = "centering")
+print(xtable(head(over3_hisp[,c(1,4)], 20), caption="Top 20 Most Underperforming Qualified Schools for Hispanic Students", align = "llc"), table.placement="H", include.rownames = FALSE, caption.placement = 'top', center = "centering")
 @
 \end{center}
 
@@ -171,7 +184,7 @@ print(xtable(head(over3_hisp[,c(1,4)], 20), caption="Top 20 Most Underperforming
 
 The tables in the section above show the schools that our model has shown do not graduate African-American and Hispanic students at the rates they should---that meet our inclusion criteria of school size and demographic proportions.  This information alone does not fully answer the ultimate question, though, of which of these schools are the best places to invest scholarship money. Now that we have a manageable selection of schools to choose from, let's dive a little deeper and look at which schools make appealing targets for resources. 
 
-The above lists are the top 20 most underperforming schools for each demographic, but far more schools than that do not meet expectations.  Extending this list to the 100 most underpeforming schools, the following five schools from each category have the lowest cost of attendance---in other words, schools where scarce scholarship dollars will go the farthest, making them better investments. Each dollar invested here will go farther towards improving graduation rates by simple result of a lower overall cost.
+The above lists are the top 20 most underperforming schools for each demographic, but far more schools than that do not meet expectations (our model found \Sexpr{length(over3_black[,1])} and \Sexpr{length(over3_hisp[,1])} for African-Americans and Hispanics, respectively).  Extending this list to the 100 most underpeforming schools, the following five schools from each category have the lowest cost of attendance---in other words, schools where scarce scholarship dollars will go the farthest, making them better investments. Each dollar invested here will go farther towards improving graduation rates by simple result of a lower overall cost.
 
 <<cheap black, include=FALSE, echo=FALSE, results=tex>>=
 black_100  <- head(over3_black, 100)
