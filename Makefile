@@ -30,8 +30,7 @@ shiny = shiny/app.R
 
 .PHONY: all eda regressions scaling report b-ridge b-ols h-ridge h-ols analysis slides session shiny clean
 
-all: 
-	eda scaling regressions report
+all: scaling eda regressions report
 
 # make the eda scripts and all the images
 eda: code/scripts/$(eda) $(subset_data)
@@ -67,7 +66,7 @@ analysis: code/scripts/$(analysis) $(aux_data) $(ranked-ridge-hispanic) $(ranked
 	
 # make report.pdf from report.Rnw
 report: $(report_rnw) $(images) $(rdata)
-	Rscript -e "library(knitr);knit2pdf('$(report_rnw)', output = 'report/report.tex')"
+	Rscript -e "library(knitr);Sweave2knitr('$(report_rnw)', output = '$(report_pdf)')"
 
 # make slides.html
 slides: slides/slides.Rmd
