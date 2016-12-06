@@ -43,7 +43,7 @@ There can be no doubt that, in an increasingly divisive and frightening time for
 \section{Data}
 The data originally comes from the Research Triangle Institute, part of the U.S. Department of Education.  This is the data that powers \texttt{http://collegescorecard.ed.gov}, a website to help college-bound students find the best schools for their interests and other preferences.  While this provides a great resource for students, it also has fostered the collection of an incredible amount of data on the over 7,700 places of higher learning in the country, which we can use to answer deeper questions.  Data points are included for types of school, graduation rates, admitance rates, student body demographics, and literally thousands more.  
 
-The original data file spans 20 years and is too large to be practical to include with this report, so we've extracted just the last three annual iterations of the \Sexpr{length(new_dat[1,])} variables that had possible relevance to the production of the information contained in this report.  This resulted in the more manageably sized \texttt{data/subset-data.csv} data set, which we have included with this report. 
+The original data file spans 20 years and has over 1700 variables---over 1700 distinct pieces of information about each school. This results in a file simply too large to be practical to include, so we've extracted just the last three annual iterations of the \Sexpr{length(new_dat[1,])} variables that had possible relevance to the production of the information contained in this report.  This resulted in the more manageably sized \texttt{data/subset-data.csv} data set, which we have included with this report. 
 
 
 \section{Exploratory Data Analysis}
